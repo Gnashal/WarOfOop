@@ -1,8 +1,6 @@
 module com.warofoop.warofoop {
-    requires javafx.controls;
     requires javafx.fxml;
 
-    requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
 
     opens com.warofoop.warofoop to javafx.fxml;
