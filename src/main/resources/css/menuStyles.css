@@ -1,5 +1,17 @@
-.root{
--fx-background-image:url('../image/BG_MainMenu.jpeg');
--fx-background-size:cover;
+.root {
+    -fx-background-image: url('../image/BG_MainMenu.jpeg');
+    -fx-background-size: cover;
+}
 
+.play-button, .exit-button {
+    -fx-background-color: black;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.play-button:hover {
+    -fx-background-color: lightgreen;
+}
+.exit-button:hover {
+    -fx-background-color: red;
 }
