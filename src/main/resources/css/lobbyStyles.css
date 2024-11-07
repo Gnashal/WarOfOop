@@ -1,0 +1,22 @@
+.root{
+    -fx-background-image:url('../image/BG_MainMenu.jpeg');
+    -fx-background-size:cover;
+}
+
+.inputName {
+    -fx-background-color: black;
+    -fx-background-radius: 10px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-alignment: center;
+}
+
+.readyButton:hover{
+    -fx-background-color: white;
+}
+
+.clickedReady{
+    -fx-background-color: green;
+}
