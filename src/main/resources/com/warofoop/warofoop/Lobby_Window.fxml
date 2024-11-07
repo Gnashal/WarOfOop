@@ -10,11 +10,10 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="root" stylesheets="@../../../css/lobbyStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:id="lobbyPane" fx:controller="com.warofoop.warofoop.controllers.LobbyController">
    <children>
-      <!-- Center container -->
+      <!-- Center container for Player 1 -->
       <VBox alignment="CENTER" layoutX="1060.0" layoutY="340.0" spacing="20.0">
-         <!-- Player 1 label and input -->
          <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px;
-         -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player1" textFill="WHITE" wrapText="true">
+         -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player 1" textFill="WHITE" wrapText="true">
             <font>
                <Font size="25.0" />
             </font>
@@ -24,46 +23,49 @@
                <Font size="25.0" />
             </font>
          </TextField>
-         <Button contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+         <Button fx:id="player1Button" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER" onAction="#toggle_player1">
             <font>
                <Font name="Arial Bold" size="24.0" />
             </font>
          </Button>
       </VBox>
+
+      <!-- Center container for Player 2 -->
       <VBox alignment="CENTER" layoutX="660.0" layoutY="340.0" spacing="20.0">
-         <children>
-   
-            <!-- Player 2 label and input -->
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player2" textFill="WHITE" wrapText="true">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <TextField prefHeight="50.0" prefWidth="250.0" promptText="Enter name here!" styleClass="inputName" text="Enter name">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </TextField>
-   
-            <!-- Ready buttons -->
-            <Button contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
-               <font>
-                  <Font name="Arial Bold" size="24.0" />
-               </font>
-            </Button>
-         </children>
-
-
+         <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player 2" textFill="WHITE" wrapText="true">
+            <font>
+               <Font size="25.0" />
+            </font>
+         </Label>
+         <TextField prefHeight="50.0" prefWidth="250.0" promptText="Enter name here!" styleClass="inputName" text="Enter name">
+            <font>
+               <Font size="25.0" />
+            </font>
+         </TextField>
+         <Button fx:id="player2Button" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER" onAction="#toggle_player2">
+            <font>
+               <Font name="Arial Bold" size="24.0" />
+            </font>
+         </Button>
       </VBox>
+
+      <!-- Lobby Status Label -->
+      <Label fx:id="statusLabel" layoutX="849.0" layoutY="500.0" text="Waiting for both players to be ready..." textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="28.0" />
+         </font>
+      </Label>
+
+      <!-- Lobby Title -->
       <Label layoutX="649.0" layoutY="189.0" text="WAR OF OOP" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="96.0" />
          </font>
       </Label>
-      <Button layoutX="484.0" layoutY="251.0" mnemonicParsing="false"
-              prefHeight="51.0" prefWidth="114.0" style="-fx-background-color: white; -fx-background-radius: 10;"
-              styleClass="back-button" text="Back" textAlignment="CENTER"
-              onAction="#returnToPrevScene"  fx:id="backButton">
+
+      <!-- Back Button -->
+      <Button layoutX="484.0" layoutY="251.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="114.0" style="-fx-background-color: white; -fx-background-radius: 10;"
+              styleClass="back-button" text="Back" textAlignment="CENTER" onAction="#returnToPrevScene" fx:id="backButton">
          <font>
             <Font name="Arial Bold" size="23.0" />
          </font>
