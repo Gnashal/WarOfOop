@@ -7,12 +7,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="root" stylesheets="@../../../css/lobbyStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="root" stylesheets="@../../../css/lobbyStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="lobbyPane" fx:controller="com.warofoop.warofoop.controllers.LobbyController">
    <children>
       <!-- Center container -->
       <VBox alignment="CENTER" layoutX="1060.0" layoutY="340.0" spacing="20.0">
          <!-- Player 1 label and input -->
-         <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player1" textFill="WHITE" wrapText="true">
+         <Label alignment="CENTER" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px;
+         -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player1" textFill="WHITE" wrapText="true">
             <font>
                <Font size="25.0" />
             </font>
@@ -22,9 +24,9 @@
                <Font size="25.0" />
             </font>
          </TextField>
-         <Button contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+         <Button contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
             <font>
-               <Font size="24.0" />
+               <Font name="Arial Bold" size="24.0" />
             </font>
          </Button>
       </VBox>
@@ -44,9 +46,9 @@
             </TextField>
    
             <!-- Ready buttons -->
-            <Button contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+            <Button contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Arial Bold" size="24.0" />
                </font>
             </Button>
          </children>
@@ -58,6 +60,14 @@
             <Font name="Arial Black" size="96.0" />
          </font>
       </Label>
+      <Button layoutX="484.0" layoutY="251.0" mnemonicParsing="false"
+              prefHeight="51.0" prefWidth="114.0" style="-fx-background-color: white; -fx-background-radius: 10;"
+              styleClass="back-button" text="Back" textAlignment="CENTER"
+              onAction="#returnToPrevScene"  fx:id="backButton">
+         <font>
+            <Font name="Arial Bold" size="23.0" />
+         </font>
+      </Button>
 
    </children>
 </AnchorPane>
