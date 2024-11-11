@@ -78,8 +78,8 @@ public class LobbyController {
         new SceneManager(lobbyPane, "Main_Menu.fxml");
     }
     @FXML
-    private void startGame() throws IOException {
+    private void goToGame() throws IOException {
         System.out.println("Starting game...");
-        new SceneManager(lobbyPane, "Sample.fxml");
+        new SceneManager(lobbyPane, "Game_Window.fxml");
     }
 }
