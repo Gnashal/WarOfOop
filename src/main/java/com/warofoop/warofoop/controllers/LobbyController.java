@@ -1,3 +1,5 @@
+package com.warofoop.warofoop.controllers;
+
 import com.warofoop.warofoop.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
