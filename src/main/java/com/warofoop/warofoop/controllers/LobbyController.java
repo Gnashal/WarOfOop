@@ -1,10 +1,9 @@
-package com.warofoop.warofoop.controllers;
-
 import com.warofoop.warofoop.SceneManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 
 public class LobbyController
