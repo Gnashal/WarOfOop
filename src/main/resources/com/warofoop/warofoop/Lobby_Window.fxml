@@ -2,7 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -24,7 +26,7 @@
             <Font size="25.0" />
          </font>
       </TextField>
-      <Button fx:id ="player1Button" contentDisplay="CENTER" layoutX="1425.0" layoutY="392.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+      <Button fx:id="player1Button" contentDisplay="CENTER" layoutX="1425.0" layoutY="392.0" onAction="#toggle_player1" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
@@ -43,23 +45,33 @@
       </TextField>
 
          <!-- Ready buttons -->
-      <Button fx:id ="player2Button" contentDisplay="CENTER" layoutX="1425.0" layoutY="706.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+      <Button fx:id="player2Button" contentDisplay="CENTER" layoutX="1425.0" layoutY="706.0" onAction="#toggle_player2" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="701.0" layoutY="641.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px;          -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Map" textFill="WHITE" wrapText="true">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
 
-         <!-- Test Game buttons -->
+
+      <!-- Test Game buttons -->
       <Button fx:id="nextButton" layoutX="486.0" layoutY="349.0" mnemonicParsing="false" onAction="#goToGame" prefHeight="51.0" prefWidth="114.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="back-button" text="Test Game Open" textAlignment="CENTER">
          <font>
             <Font name="Arial Bold" size="23.0" />
          </font>
       </Button>
+      
+      <AnchorPane layoutX="697.0" layoutY="263.0" prefHeight="284.0" prefWidth="550.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 5; -fx-border-radius: 10; -fx-background-radius: 15;">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="205.0" fitWidth="313.0" layoutX="27.0" layoutY="39.0" preserveRatio="true" styleClass="imageView" />
+            <Label alignment="CENTER" layoutX="36.0" layoutY="-20.0" prefHeight="50.0" prefWidth="214.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: Black; -fx-border-width: 5;" styleClass="playername" text="Map" wrapText="true">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+      
+                  <ListView fx:id="imageListView" layoutX="355.0" layoutY="23.0" prefHeight="248.0" prefWidth="200.0" style="-fx-border-color: black;" />
+            <Button layoutX="470.0" layoutY="229.0" onAction="#handleSelectImage" text="Select Map" />
+            <Button layoutX="372.0" layoutY="229.0" onAction="#loadPreloadedImages" style="-fx-background-color: green;" text="Load Images" />
+         </children></AnchorPane>
 
    </children>
 </AnchorPane>
