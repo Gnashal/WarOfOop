@@ -11,8 +11,10 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class GameController
-{
+public class GameController {
+
+    private SceneManager sceneManager;
+
     @FXML
     AnchorPane gamePane;
 
@@ -38,6 +40,17 @@ public class GameController
     public int playerEcon2 = 0;
     public int roundCount = 1;
 
+    // Set SceneManager in the controller
+    public void setSceneManager(SceneManager sceneManager) {
+        if (this.sceneManager == null) {
+            System.out.println("Setting SceneManager for the first time");
+        } else {
+            System.out.println("SceneManager already set");
+        }
+        System.out.println("Scene Manager set");
+        this.sceneManager = sceneManager;
+    }
+
     public void initialize() {
         gamePane.setFocusTraversable(true);
         gamePane.requestFocus();
@@ -49,8 +62,12 @@ public class GameController
 
     @FXML
     public void returnToPrevScene() throws IOException {
-        System.out.println("Switched to Main Menu");
-        new SceneManager(gamePane, "Lobby_Window.fxml");
+        if (sceneManager == null) {
+            System.out.println("Scene Manager Null");
+            return;
+        }
+        System.out.println("Switched to Lobby");
+        sceneManager.switchToLobby();
     }
 
     @FXML
@@ -65,8 +82,8 @@ public class GameController
             case P -> playerEcon2 -= 15;
         }
 
-        playerLabelEcon1.setText(" "+ playerEcon1);
-        playerLabelEcon2.setText(" "+ playerEcon2);
+        playerLabelEcon1.setText(" " + playerEcon1);
+        playerLabelEcon2.setText(" " + playerEcon2);
     }
 
     private void runEcon() {
@@ -78,8 +95,8 @@ public class GameController
                     playerEcon2 += 15;
 
                     Platform.runLater(() -> {
-                        playerLabelEcon1.setText(" "+ playerEcon1);
-                        playerLabelEcon2.setText(" "+ playerEcon2);
+                        playerLabelEcon1.setText(" " + playerEcon1);
+                        playerLabelEcon2.setText(" " + playerEcon2);
                     });
 
                     Thread.sleep(6000);
@@ -91,5 +108,4 @@ public class GameController
 
         new Thread(giveMoney).start();
     }
-
 }
