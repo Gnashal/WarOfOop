@@ -24,7 +24,7 @@
             <Font size="25.0" />
          </font>
       </TextField>
-      <Button contentDisplay="CENTER" layoutX="1425.0" layoutY="392.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+      <Button fx:id ="player1Button" contentDisplay="CENTER" layoutX="1425.0" layoutY="392.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER" onAction="#toggle_player1">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
@@ -43,7 +43,7 @@
       </TextField>
 
          <!-- Ready buttons -->
-      <Button contentDisplay="CENTER" layoutX="1425.0" layoutY="706.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+      <Button fx:id ="player2Button" contentDisplay="CENTER" layoutX="1425.0" layoutY="706.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER" onAction="#toggle_player2">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
@@ -60,6 +60,10 @@
             <Font name="Arial Bold" size="23.0" />
          </font>
       </Button>
-
+      <Label fx:id="statusLabel" alignment="CENTER" layoutX="700.0" layoutY="100.0" prefHeight="50.0" prefWidth="900.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" text="Waiting for both players to be ready..." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
