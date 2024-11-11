@@ -15,7 +15,7 @@
       <Pane layoutX="305.0" layoutY="157.0" prefHeight="175.0" prefWidth="325.0" styleClass="playerMenu" stylesheets="@../../../css/gameStyles.css">
          <children>
             <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="10.0">
-               <Label fx:id="playerName1" text="Player1" textAlignment="CENTER">
+               <Label fx:id="playerName1"  textAlignment="CENTER">
                   <font>
                      <Font size="30.0" />
                   </font>
@@ -48,7 +48,7 @@
       <Pane layoutX="1168.0" layoutY="157.0" prefHeight="175.0" prefWidth="325.0" styleClass="playerMenu" stylesheets="@../../../css/gameStyles.css">
          <children>
             <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="10.0">
-               <Label fx:id="playerName2" text="Player2" textAlignment="CENTER">
+               <Label fx:id="playerName2" textAlignment="CENTER">
                   <font>
                      <Font size="30.0" />
                   </font>

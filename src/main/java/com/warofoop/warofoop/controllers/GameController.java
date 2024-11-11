@@ -5,6 +5,8 @@ import com.warofoop.warofoop.build.*;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -16,6 +18,15 @@ import java.io.IOException;
 public class GameController {
 
     private SceneManager sceneManager;
+    private Player player1;
+    private Player player2;
+    private Game game;
+    public float playerHealth1;
+    public float playerHealth2;
+
+    public int playerEcon1;
+    public int playerEcon2;
+    public int roundCount;
 
     @FXML
     AnchorPane gamePane;
@@ -41,12 +52,7 @@ public class GameController {
     @FXML
     private ProgressBar playerHealthDisplay2;
 
-    public int playerHealth1 = 100;
-    public int playerHealth2 = 100;
-
-    public int playerEcon1 = 0;
-    public int playerEcon2 = 0;
-    public int roundCount = 1;
+//    TODO: FIX UI, NAMES WONT DISPLAY. MAYBE VERIFY IF NA PASA BA ANG NAMES FROM THE LOBBY CONTROLLER
 
     public void setSceneManager(SceneManager sceneManager) {
         if (this.sceneManager == null) {
@@ -58,27 +64,41 @@ public class GameController {
         this.sceneManager = sceneManager;
     }
 
-    public void initialize() {
+    public void setPlayers(Player player1, Player player2, Game game) throws IOException {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.game = game;
+        initializeGame();
+    }
+
+    public void initializeGame() throws IOException {
+        playerHealth1 = player1.getCurrhealth();
+        playerHealth2 = player2.getCurrhealth();
+        playerEcon1 = player1.getGold();
+        playerEcon2 = player2.getGold();
+        playerName1.setText(player1.getName());
+        playerName2.setText(player2.getName());
+
         gamePane.setFocusTraversable(true);
         gamePane.requestFocus();
 
         gamePane.setOnKeyPressed(this::hotKey);
 
-        healthbar(playerHealthDisplay1, playerHealth1);
-        healthbar(playerHealthDisplay2, playerHealth2);
+        healthbar(playerHealthDisplay1, player1.getCurrhealth());
+        healthbar(playerHealthDisplay2, player1.getCurrhealth());
 
         runEcon();
     }
 
 
-    public void healthbar(ProgressBar bar, int health) {
-        bar.setProgress(health / 100.0);
+    public void healthbar(ProgressBar bar, float health) {
+        bar.setProgress(health / player1.getMaxhealth());
 
         String color;
 
-        if (health > 70) {
+        if (health > 70f) {
             color = "#4caf50";
-        } else if (health > 30) {
+        } else if (health > 30f) {
             color = "#ffeb3b";
         } else {
             color = "#f44336";
@@ -93,7 +113,7 @@ public class GameController {
             System.out.println("Scene Manager Null");
             return;
         }
-        System.out.println("Switched to Lobby");
+        System.out.println("Switched to Game");
         sceneManager.switchToLobby();
     }
 

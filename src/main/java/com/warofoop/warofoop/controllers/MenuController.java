@@ -33,7 +33,7 @@ public class MenuController {
         this.sceneManager = sceneManager;
     }
 
-    // Switch to Lobby
+    // Switch to Game
     @FXML
     public void switchToLobby(ActionEvent event) throws IOException {
         if (sceneManager == null) {
@@ -41,7 +41,7 @@ public class MenuController {
             return;
         }
         sceneManager.switchToLobby();
-        System.out.println("Switched To Lobby");
+        System.out.println("Switched To Game");
     }
 
     // Exit the game

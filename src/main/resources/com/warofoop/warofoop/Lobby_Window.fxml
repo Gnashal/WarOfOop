@@ -19,7 +19,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="1400.0" layoutY="321.0" prefHeight="50.0" prefWidth="250.0" promptText="Enter name here!" styleClass="inputName" text="Enter name">
+      <TextField layoutX="1400.0" layoutY="321.0" prefHeight="50.0" prefWidth="250.0" promptText="Enter name here!" styleClass="inputName" text="Enter name" fx:id="playerName1">
          <font>
             <Font size="25.0" />
          </font>
@@ -36,7 +36,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="1400.0" layoutY="636.0" prefHeight="50.0" prefWidth="250.0" promptText="Enter name here!" styleClass="inputName" text="Enter name">
+      <TextField layoutX="1400.0" layoutY="636.0" prefHeight="50.0" prefWidth="250.0" promptText="Enter name here!" styleClass="inputName" text="Enter name" fx:id="playerName2">
          <font>
             <Font size="25.0" />
          </font>

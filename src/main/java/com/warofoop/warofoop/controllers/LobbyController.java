@@ -1,14 +1,21 @@
 package com.warofoop.warofoop.controllers;
 
 import com.warofoop.warofoop.SceneManager;
+import com.warofoop.warofoop.build.Game;
+import com.warofoop.warofoop.build.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class LobbyController {
+
+    private Player player1;
+    private Player player2;
+    private Game game;
 
     private SceneManager sceneManager;
 
@@ -21,8 +28,23 @@ public class LobbyController {
     @FXML
     private Label statusLabel;
 
+    @FXML
+    private TextField playerName1, playerName2;
+
     private boolean player1Ready = false;
     private boolean player2Ready = false;
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public Game getGame() {
+        return game;
+    }
 
     // Set the SceneManager
     public void setSceneManager(SceneManager sceneManager) {
@@ -35,6 +57,13 @@ public class LobbyController {
         if (player1Ready && player2Ready) {
             statusLabel.setText("Both players are ready! Starting the game...");
             System.out.println("Both players ready, switching to game scene...");
+
+            // Ga-initializeGame kog Player and Game classes here and to be passed to the Game Controller
+            String name1 = playerName1.getText();
+            String name2 = playerName2.getText();
+            player1 = new Player(100f, 500, name1, 10);
+            player2 = new Player(100f, 500, name2, 10);
+            game = new Game(player1, player2);
             goToGame();
         } else {
             updateStatusLabel();
@@ -85,6 +114,7 @@ public class LobbyController {
             return;
         }
         System.out.println("Switching to Game Scene...");
-        sceneManager.switchToGame();
+        game.startGame();
+        sceneManager.switchToGame(player1, player2, game);
     }
 }
