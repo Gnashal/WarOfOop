@@ -48,6 +48,16 @@ public class GameController {
     public int playerEcon2 = 0;
     public int roundCount = 1;
 
+    public void setSceneManager(SceneManager sceneManager) {
+        if (this.sceneManager == null) {
+            System.out.println("Setting SceneManager for the first time");
+        } else {
+            System.out.println("SceneManager already set");
+        }
+        System.out.println("Scene Manager set");
+        this.sceneManager = sceneManager;
+    }
+
     public void initialize() {
         gamePane.setFocusTraversable(true);
         gamePane.requestFocus();
