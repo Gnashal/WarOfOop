@@ -11,3 +11,12 @@
     -fx-border-width: 2.5px;
     -fx-border-radius: 5px;
 }
+
+.playerHealthBar {
+    -fx-background-color: #333;
+    -fx-border-width: 3px;
+    -fx-border-radius: 5px;
+    -fx-border-color: grey;
+    -fx-border-style: solid;
+    -fx-background-radius: 5px;
+}

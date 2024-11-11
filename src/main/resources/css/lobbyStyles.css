@@ -20,3 +20,6 @@
 .clickedReady{
     -fx-background-color: green;
 }
+.back-button:hover {
+    -fx-background-color: red;
+}
