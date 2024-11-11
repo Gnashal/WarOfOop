@@ -20,4 +20,10 @@ public class LobbyController
         System.out.println("Switched to Main Menu");
         new SceneManager(lobbyPane, "Main_Menu.fxml");
     }
+
+    @FXML
+    public void goToGame() throws IOException {
+        System.out.println("Entering Game!");
+        new SceneManager(lobbyPane, "Game_Window.fxml");
+    }
 }
