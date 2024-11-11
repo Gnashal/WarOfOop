@@ -13,65 +13,49 @@ public class LobbyController {
     private SceneManager sceneManager;
 
     @FXML
-    AnchorPane lobbyPane;
+    private AnchorPane lobbyPane;
 
     @FXML
-    Button backButton;
+    private Button backButton, player1Button, player2Button;
 
-    // Set SceneManager in the controller
+    @FXML
+    private Label statusLabel;
+
+    private boolean player1Ready = false;
+    private boolean player2Ready = false;
+
+    // Set the SceneManager
     public void setSceneManager(SceneManager sceneManager) {
-        if (this.sceneManager == null) {
-            System.out.println("Setting SceneManager for the first time");
-        } else {
-            System.out.println("SceneManager already set");
-        }
-        System.out.println("Scene Manager set");
         this.sceneManager = sceneManager;
+        System.out.println("SceneManager has been set in LobbyController.");
     }
 
-    @FXML
-    Button player1Button;
-
-    @FXML
-    Button player2Button;
-
-    @FXML
-    Label statusLabel;
-
-    boolean player1Ready = false;
-    boolean player2Ready = false;
-
-    public void p1p2_ready() throws IOException {
+    // Check if both players are ready and switch to the game scene
+    private void p1p2_ready() throws IOException {
         if (player1Ready && player2Ready) {
             statusLabel.setText("Both players are ready! Starting the game...");
-            startGame();
+            System.out.println("Both players ready, switching to game scene...");
+            goToGame();
         } else {
             updateStatusLabel();
         }
     }
 
+    @FXML
     public void toggle_player1(ActionEvent event) throws IOException {
-        if (!player1Ready) {
-            player1Ready = true;
-            player1Button.setText("Unready");
-        } else {
-            player1Ready = false;
-            player1Button.setText("Ready!");
-        }
+        player1Ready = !player1Ready;
+        player1Button.setText(player1Ready ? "Unready" : "Ready!");
+        System.out.println("Player 1 ready: " + player1Ready);
         p1p2_ready();
     }
 
+    @FXML
     public void toggle_player2(ActionEvent event) throws IOException {
-        if (!player2Ready) {
-            player2Ready = true;
-            player2Button.setText("Unready");
-        } else {
-            player2Ready = false;
-            player2Button.setText("Ready!");
-        }
+        player2Ready = !player2Ready;
+        player2Button.setText(player2Ready ? "Unready" : "Ready!");
+        System.out.println("Player 2 ready: " + player2Ready);
         p1p2_ready();
     }
-
 
     // Update status label based on which players are ready
     private void updateStatusLabel() {
@@ -83,24 +67,24 @@ public class LobbyController {
             statusLabel.setText("Waiting for both players to be ready...");
         }
     }
-    
+
     @FXML
     public void returnToPrevScene() throws IOException {
         if (sceneManager == null) {
-            System.out.println("Scene Manager Null");
+            System.out.println("SceneManager is null! Cannot switch to main menu.");
             return;
         }
-        System.out.println("Switched to Main Menu");
+        System.out.println("Switching to Main Menu...");
         sceneManager.switchToMainMenu();
     }
-    
+
     @FXML
     public void goToGame() throws IOException {
         if (sceneManager == null) {
-            System.out.println("Scene Manager Null");
+            System.out.println("SceneManager is null! Cannot switch to game scene.");
             return;
         }
-        System.out.println("Entering Game!");
+        System.out.println("Switching to Game Scene...");
         sceneManager.switchToGame();
     }
 }

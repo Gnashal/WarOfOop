@@ -60,6 +60,10 @@
             <Font name="Arial Bold" size="23.0" />
          </font>
       </Button>
-
+      <Label fx:id="statusLabel" alignment="CENTER" layoutX="700.0" layoutY="100.0" prefHeight="50.0" prefWidth="900.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" text="Waiting for both players to be ready..." textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
