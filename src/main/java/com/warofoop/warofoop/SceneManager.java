@@ -1,5 +1,6 @@
 package com.warofoop.warofoop;
 
+import com.warofoop.warofoop.build.*;
 import com.warofoop.warofoop.controllers.GameController;
 import com.warofoop.warofoop.controllers.LobbyController;
 import com.warofoop.warofoop.controllers.MenuController;
@@ -50,7 +51,11 @@ public class SceneManager {
         stage.show();
     }
 
-    public void switchToGame() {
+    public void switchToGame(Player player1, Player player2, Game game) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/warofoop/warofoop/Game_Window.fxml"));
+        Parent root = loader.load();
+        GameController gameController = loader.getController();
+        gameController.setPlayers(player1, player2, game);
         stage.setScene(gameScene);
         stage.show();
     }
