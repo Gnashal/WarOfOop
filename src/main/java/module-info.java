@@ -9,4 +9,5 @@ module com.warofoop.warofoop {
     exports com.warofoop.warofoop;
     exports com.warofoop.warofoop.controllers;
     opens com.warofoop.warofoop.controllers to javafx.fxml;
+    exports com.warofoop.warofoop.build;
 }
