@@ -8,18 +8,21 @@ public class Game {
     Player player1;
     Player player2;
     GameState gameState;
+    String map;
     int roundCount;
 
-    public Game(Player player1, Player player2) {
+    public Game(Player player1, Player player2, String selectedMap) {
         this.player1 = player1;
         this.player2 = player2;
         this.gameState =GameState.DEFAULT;
+        this.map = selectedMap;
         roundCount = 0;
     }
     public void startGame() {
         if (gameState == GameState.DEFAULT) {
             gameState = GameState.ONGOING;
             roundCount = 1;
+            System.out.println("Starting game with map: " + map);
             System.out.println("Game started!");
         }
     }
