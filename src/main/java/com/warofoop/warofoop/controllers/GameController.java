@@ -11,9 +11,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
+import javafx.scene.image.Image;
 
+import java.net.URL;
+
+
+import java.awt.*;
 import java.io.IOException;
+import java.util.Objects;
 
 public class GameController {
 
@@ -21,6 +27,7 @@ public class GameController {
     private Player player1;
     private Player player2;
     private Game game;
+    private String map;
     public float playerHealth1;
     public float playerHealth2;
 
@@ -52,7 +59,6 @@ public class GameController {
     @FXML
     private ProgressBar playerHealthDisplay2;
 
-//    TODO: FIX UI, NAMES WONT DISPLAY. MAYBE VERIFY IF NA PASA BA ANG NAMES FROM THE LOBBY CONTROLLER
 
     public void setSceneManager(SceneManager sceneManager) {
         if (this.sceneManager == null) {
@@ -64,11 +70,39 @@ public class GameController {
         this.sceneManager = sceneManager;
     }
 
-    public void setPlayers(Player player1, Player player2, Game game) throws IOException {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.game = game;
+
+
+    public void setGame(Game newGame) throws IOException {
+        this.player1 = newGame.getPlayer1();
+        this.player2 = newGame.getPlayer2();
+        this.game = newGame;
+        this.map = newGame.getMap();
+        System.out.println(player1.getName() + " " + player2.getName());
+        System.out.println(map);
         initializeGame();
+    }
+
+    public void setGameBackground() {
+        try {
+            String mapPath = "/Maps/" + map;
+            URL mapUrl = getClass().getResource(mapPath);
+            if (mapUrl == null) {
+                System.out.println("Map file not found at: " + mapPath);
+                return;
+            }
+            Image mapImage = new Image(mapUrl.toExternalForm());
+            BackgroundSize backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
+            gamePane.setBackground(new Background(new BackgroundImage( mapImage,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.CENTER,
+                    backgroundSize)));
+            System.out.println("New Background Image set");
+        } catch (NullPointerException e) {
+            System.out.println("Error here:" + e);
+            return;
+        }
+
     }
 
     public void initializeGame() throws IOException {
@@ -81,12 +115,12 @@ public class GameController {
 
         gamePane.setFocusTraversable(true);
         gamePane.requestFocus();
-
+        setGameBackground();
         gamePane.setOnKeyPressed(this::hotKey);
 
         healthbar(playerHealthDisplay1, player1.getCurrhealth());
         healthbar(playerHealthDisplay2, player1.getCurrhealth());
-
+        game.startGame();
         runEcon();
     }
 
