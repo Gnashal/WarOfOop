@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class LobbyController {
     private final String[] imagePaths = {
@@ -147,7 +148,7 @@ public class LobbyController {
         for (String path : imagePaths) {
             try {
                 if (imageCount < imagePaths.length) {
-                    String imagePath = getClass().getResource(path).toExternalForm();
+                    String imagePath = Objects.requireNonNull(getClass().getResource(path)).toExternalForm();
                     imageListView.getItems().add(imagePath.substring(imagePath.lastIndexOf('/') + 1));
                     imageCount++;
                 } else {
