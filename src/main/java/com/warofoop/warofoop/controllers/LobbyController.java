@@ -23,14 +23,14 @@ public class LobbyController {
             "/Maps/DebugMap2.png" // debug maps
     };
 
-    String selectedImageName;
+
 
     @FXML
     private ListView<String> imageListView;
 
     @FXML
     private ImageView imageView;
-
+    String selectedImageName;
     private Player player1;
     private Player player2;
     private Game game;
@@ -84,7 +84,7 @@ public class LobbyController {
             String MapName = imageListView.getSelectionModel().getSelectedItem();
             player1 = new Player(100f, 500, name1, 10);
             player2 = new Player(100f, 500, name2, 10);
-            game = new Game(player1, player2, selectedImageName);
+            game = new Game(player1, player2, MapName);
             goToGame();
         } else {
             updateStatusLabel();
@@ -138,7 +138,7 @@ public class LobbyController {
         }
         System.out.println("Switching to Game Scene...");
         game.startGame();
-        sceneManager.switchToGame(player1, player2, game);
+        sceneManager.switchToGame(game);
     }
 
     //    for maps

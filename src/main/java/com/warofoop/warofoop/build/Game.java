@@ -18,6 +18,23 @@ public class Game {
         this.map = selectedMap;
         roundCount = 0;
     }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public int getRoundCount() {
+        return roundCount;
+    }
+
+    public String getMap() {
+        return map;
+    }
+
     public void startGame() {
         if (gameState == GameState.DEFAULT) {
             gameState = GameState.ONGOING;
