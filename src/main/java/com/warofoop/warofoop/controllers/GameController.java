@@ -271,6 +271,29 @@ public class GameController {
                 return null;
             }
         };
+        
+    private void updateUI() {
+//       TODO: THIS IS WHERE WE PUT UI UPDATES. Like Changing the round when the
+//        TIMER IS UP, THE HEALTHBAR, ECONOMY ETC ETC
+    }
+        
+    public void startGameLoop() {
+        game.startGame();
+        Task<Void> gameLoop = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                while (!game.isGameOver()) {
+                    Platform.runLater(() -> {
+                        updateUI();
+                    });
+                    game.updateGameLogic();
+                    Thread.sleep(1000 / 60);
+                }
+                return null;
+            }
+        };
+        new Thread(gameLoop).start();
+    }
 
         Thread econThread = new Thread(giveMoney);
         econThread.setDaemon(true);
