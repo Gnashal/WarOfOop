@@ -17,10 +17,10 @@ public class SceneManager {
     private final Stage stage;
     private final Scene mainMenuScene;
     private final Scene lobbyScene;
-    private final Scene gameScene;
+    private  Scene gameScene;
 
 
-    private final GameController gameController;
+    private  GameController gameController;
 
     public SceneManager(Stage stage) throws IOException {
         this.stage = stage;
@@ -37,11 +37,7 @@ public class SceneManager {
         LobbyController lobbyController = lobbyLoader.getController();
         lobbyController.setSceneManager(this);
 
-        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("/com/warofoop/warofoop/Game_Window.fxml"));
-        Parent gameRoot = gameLoader.load();
-        gameScene = new Scene(gameRoot);
-        gameController = gameLoader.getController();
-        gameController.setSceneManager(this);
+
     }
 
     public void switchToMainMenu() {
@@ -55,6 +51,11 @@ public class SceneManager {
     }
 
     public void switchToGame(Game game) throws IOException {
+        FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("/com/warofoop/warofoop/Game_Window.fxml"));
+        Parent gameRoot = gameLoader.load();
+        gameScene = new Scene(gameRoot);
+        gameController = gameLoader.getController();
+        gameController.setSceneManager(this);
         gameController.setGame(game);
         stage.setScene(gameScene);
         stage.show();

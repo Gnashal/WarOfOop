@@ -25,7 +25,7 @@ public class MenuController {
     // Setter method to inject SceneManager
     public void setSceneManager(SceneManager sceneManager) {
         if (this.sceneManager == null) {
-            System.out.println("Setting SceneManager for the first time");
+            System.out.println("Setting SceneManager in Menu Controller");
         } else {
             System.out.println("SceneManager already set");
         }

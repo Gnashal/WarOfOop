@@ -79,7 +79,9 @@ public class GameController {
         // Timer to update the game phases
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
-                    updateTimeLogic();
+                    if (!game.isGameOver()) {
+                        updateTimeLogic();
+                    }
                 })
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -92,26 +94,29 @@ public class GameController {
     }
 
     private void updateTimeLogic() {
-        if (deployTime.get() > 0) {
-            deployTime.set(deployTime.get() - 1);
-            if (deployTime.get() == 0) {
-                intervalTime.set(3);
+        if (!game.isGameOver()) {
+            if (deployTime.get() > 0) {
+                deployTime.set(deployTime.get() - 1);
+                if (deployTime.get() == 0) {
+                    intervalTime.set(3);
+                }
+            } else if (intervalTime.get() > 0) {
+                intervalTime.set(intervalTime.get() - 1);
+                if (intervalTime.get() == 0) {
+                    startTime.set(30);
+                }
+            } else if (startTime.get() > 0) {
+                startTime.set(startTime.get() - 1);
+                if (startTime.get() == 0) {
+                    roundCount++;
+                    updateRoundLabel();
+                    System.out.println("Round " + roundCount + " begins!");
+                    deployTime.set(20);
+                }
             }
-        } else if (intervalTime.get() > 0) {
-            intervalTime.set(intervalTime.get() - 1);
-            if (intervalTime.get() == 0) {
-                startTime.set(30);
-            }
-        } else if (startTime.get() > 0) {
-            startTime.set(startTime.get() - 1);
-            if (startTime.get() == 0) {
-                roundCount++;
-                updateRoundLabel();
-                System.out.println("Round " + roundCount + " begins!");
-                deployTime.set(20);
-            }
+            updateTimeLabel();
         }
-        updateTimeLabel();
+
     }
 
     private void updateTimeLabel() {
@@ -130,7 +135,7 @@ public class GameController {
 
     public void setSceneManager(SceneManager sceneManager) {
         if (this.sceneManager == null) {
-            System.out.println("Setting SceneManager for the first time");
+            System.out.println("Setting SceneManager in Game Controller");
         } else {
             System.out.println("SceneManager already set");
         }
@@ -212,6 +217,7 @@ public class GameController {
             return;
         }
         System.out.println("Switched to Game");
+        game.endGame();
         sceneManager.switchToLobby();
     }
 
@@ -271,6 +277,10 @@ public class GameController {
                 return null;
             }
         };
+        Thread econThread = new Thread(giveMoney);
+        econThread.setDaemon(true);
+        econThread.start();
+    }
         
     private void updateUI() {
 //       TODO: THIS IS WHERE WE PUT UI UPDATES. Like Changing the round when the
@@ -293,10 +303,5 @@ public class GameController {
             }
         };
         new Thread(gameLoop).start();
-    }
-
-        Thread econThread = new Thread(giveMoney);
-        econThread.setDaemon(true);
-        econThread.start();
     }
 }
