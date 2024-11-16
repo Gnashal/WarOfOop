@@ -58,13 +58,6 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Button>
-
-                  <!-- Test Game buttons -->
-      <Button fx:id="nextButton" layoutX="235.0" layoutY="246.0" mnemonicParsing="false" onAction="#goToGame" prefHeight="51.0" prefWidth="114.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="back-button" text="Test Game Open" textAlignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="23.0" />
-         </font>
-      </Button>
       <Label fx:id="statusLabel" alignment="CENTER" layoutX="406.0" layoutY="279.0" prefHeight="85.0" prefWidth="740.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="BG_User1" text="Waiting for both players to be ready..." textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold Italic" size="25.0" />

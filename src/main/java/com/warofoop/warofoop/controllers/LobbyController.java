@@ -92,6 +92,7 @@ public class LobbyController {
         }
     }
 
+//    Toggles for both players if they are ready or not
     @FXML
     public void toggle_player1(ActionEvent event) throws IOException {
         player1Ready = !player1Ready;
@@ -120,7 +121,9 @@ public class LobbyController {
             statusLabel.setText("Waiting for both players to be ready...");
         }
     }
+    //    =================================================================
 
+//    Return to previous scene
     @FXML
     public void returnToPrevScene() throws IOException {
         if (sceneManager == null) {
@@ -142,7 +145,7 @@ public class LobbyController {
         sceneManager.switchToGame(game);
     }
 
-    //    for maps
+    //    Load the map images
     @FXML
     public void loadPreloadedImages() {
         for (String path : imagePaths) {
@@ -160,6 +163,7 @@ public class LobbyController {
         }
     }
 
+//    Loads the image that was selected by the player
     @FXML
     public void handleSelectImage() throws IOException {
         selectedImageName = imageListView.getSelectionModel().getSelectedItem();

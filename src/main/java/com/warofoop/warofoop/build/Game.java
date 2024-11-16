@@ -11,6 +11,7 @@ public class Game {
     String map;
     int roundCount;
 
+//    Game class constructor
     public Game(Player player1, Player player2, String selectedMap) {
         this.player1 = player1;
         this.player2 = player2;
