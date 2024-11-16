@@ -3,6 +3,11 @@
     -fx-background-size:cover;
 }
 
+.BG_User1, .BG_User2{
+    -fx-background-image:url('../image/BG_Lobby_User_Input.png');
+    -fx-background-radius: 10px;
+}
+
 .inputName {
     -fx-background-color: black;
     -fx-background-radius: 10px;
@@ -19,4 +24,14 @@
 
 .clickedReady{
     -fx-background-color: green;
+}
+
+.backButton{
+    -fx-background-color: black;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.backButton:hover {
+    -fx-background-color: red;
 }

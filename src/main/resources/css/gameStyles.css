@@ -1,9 +1,3 @@
-.root {
-    -fx-background-image: url('../image/grass_background.jpeg');
-    -fx-background-repeat: repeat;
-    -fx-background-size: auto;
-}
-
 .playerMenu {
     -fx-background-image: url('../image/wood_background.jpeg');
     -fx-background-radius: 2px;

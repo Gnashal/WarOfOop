@@ -10,8 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class MenuController {
+
+    private SceneManager sceneManager;
+
     @FXML
-    AnchorPane rootpane;
+    private AnchorPane rootpane;
 
     @FXML
     Button playButton;
@@ -19,14 +22,38 @@ public class MenuController {
     @FXML
     Button exitButton;
 
-    public void switchToLobby() throws IOException {
-        new SceneManager(rootpane, "Lobby_Window.fxml");
-        System.out.println("Switched To Lobby");
+    // Setter method to inject SceneManager
+    public void setSceneManager(SceneManager sceneManager) {
+        if (this.sceneManager == null) {
+            System.out.println("Setting SceneManager for the first time");
+        } else {
+            System.out.println("SceneManager already set");
+        }
+        System.out.println("Scene Manager set");
+        this.sceneManager = sceneManager;
     }
 
+    // Switch to Game
+    @FXML
+    public void switchToLobby(ActionEvent event) throws IOException {
+        if (sceneManager == null) {
+            System.out.println("Scene Manager Null");
+            return;
+        }
+        sceneManager.switchToLobby();
+        System.out.println("Switched To Game");
+    }
+
+    // Exit the game
+    @FXML
     public void exitGame() {
-        Platform.exit();
-        System.out.println("Exit Successful");
+        try {
+            System.out.println("Exiting Application..");
+            Platform.exit();
+            System.out.println("Exit Successful");
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }

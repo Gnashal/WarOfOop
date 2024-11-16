@@ -3,9 +3,11 @@ module com.warofoop.warofoop {
 
     requires org.kordamp.bootstrapfx.core;
     requires javafx.controls;
+    requires java.desktop;
 
     opens com.warofoop.warofoop to javafx.fxml;
     exports com.warofoop.warofoop;
     exports com.warofoop.warofoop.controllers;
     opens com.warofoop.warofoop.controllers to javafx.fxml;
+    exports com.warofoop.warofoop.build;
 }

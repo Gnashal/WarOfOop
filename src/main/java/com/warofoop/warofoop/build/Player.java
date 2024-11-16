@@ -8,13 +8,13 @@ public class Player {
     private int threshold;
     private int unitcount;
 
-    public Player(float currhealth, int gold, float maxhealth, String name, int threshold, int unitcount) {
-        this.currhealth = currhealth;
+    public Player(float maxhealth, int gold, String name, int threshold) {
+        this.currhealth = maxhealth;
         this.gold = gold;
         this.maxhealth = maxhealth;
         this.name = name;
         this.threshold = threshold;
-        this.unitcount = unitcount;
+        this.unitcount = 0;
     }
 
     public String getName() {
