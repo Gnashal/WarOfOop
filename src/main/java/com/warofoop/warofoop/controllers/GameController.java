@@ -4,8 +4,12 @@ import com.warofoop.warofoop.SceneManager;
 import com.warofoop.warofoop.build.*;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,13 +17,10 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 import java.net.URL;
-
-
-import java.awt.*;
 import java.io.IOException;
-import java.util.Objects;
 
 public class GameController {
 
@@ -33,7 +34,11 @@ public class GameController {
 
     public int playerEcon1;
     public int playerEcon2;
-    public int roundCount;
+    public int roundCount = 1;
+
+    private IntegerProperty deployTime = new SimpleIntegerProperty(20);
+    private IntegerProperty startTime = new SimpleIntegerProperty(30);
+    private IntegerProperty intervalTime = new SimpleIntegerProperty(3);
 
     @FXML
     AnchorPane gamePane;
@@ -59,6 +64,69 @@ public class GameController {
     @FXML
     private ProgressBar playerHealthDisplay2;
 
+    @FXML
+    private Label timeLabel; // The Label to display seconds
+
+    @FXML
+    private Label roundLabel;
+
+    @FXML
+    public void initialize() {
+        // Set the initial round
+        roundCount = 1;
+        roundLabel.setText("Round: " + roundCount);
+
+        // Timer to update the game phases
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
+                    updateTimeLogic();
+                })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+
+    private void updateRoundLabel() {
+        Platform.runLater(() -> roundLabel.setText("Round: " + roundCount));
+    }
+
+    private void updateTimeLogic() {
+        if (deployTime.get() > 0) {
+            deployTime.set(deployTime.get() - 1);
+            if (deployTime.get() == 0) {
+                intervalTime.set(3);
+            }
+        } else if (intervalTime.get() > 0) {
+            intervalTime.set(intervalTime.get() - 1);
+            if (intervalTime.get() == 0) {
+                startTime.set(30);
+            }
+        } else if (startTime.get() > 0) {
+            startTime.set(startTime.get() - 1);
+            if (startTime.get() == 0) {
+                roundCount++;
+                updateRoundLabel();
+                System.out.println("Round " + roundCount + " begins!");
+                deployTime.set(20);
+            }
+        }
+        updateTimeLabel();
+    }
+
+    private void updateTimeLabel() {
+        if (deployTime.get() > 0) {
+            timeLabel.setText(String.format("%02d", deployTime.get()));
+            System.out.printf("Round: %d", roundCount);
+        } else if (intervalTime.get() > 0) {
+            timeLabel.setText(String.format("%02d", intervalTime.get()));
+        } else if (startTime.get() > 0) {
+            timeLabel.setText(String.format("%02d", startTime.get()));
+        }
+    }
+
+
+
 
     public void setSceneManager(SceneManager sceneManager) {
         if (this.sceneManager == null) {
@@ -69,8 +137,6 @@ public class GameController {
         System.out.println("Scene Manager set");
         this.sceneManager = sceneManager;
     }
-
-
 
     public void setGame(Game newGame) throws IOException {
         this.player1 = newGame.getPlayer1();
@@ -92,7 +158,7 @@ public class GameController {
             }
             Image mapImage = new Image(mapUrl.toExternalForm());
             BackgroundSize backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
-            gamePane.setBackground(new Background(new BackgroundImage( mapImage,
+            gamePane.setBackground(new Background(new BackgroundImage(mapImage,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundRepeat.NO_REPEAT,
                     BackgroundPosition.CENTER,
@@ -102,7 +168,6 @@ public class GameController {
             System.out.println("Error here:" + e);
             return;
         }
-
     }
 
     public void initializeGame() throws IOException {
@@ -118,12 +183,11 @@ public class GameController {
         setGameBackground();
         gamePane.setOnKeyPressed(this::hotKey);
 
-        healthbar(playerHealthDisplay1, player1.getCurrhealth());
-        healthbar(playerHealthDisplay2, player1.getCurrhealth());
+        healthbar(playerHealthDisplay1, playerHealth1);
+        healthbar(playerHealthDisplay2, playerHealth2);
         game.startGame();
         runEcon();
     }
-
 
     public void healthbar(ProgressBar bar, float health) {
         bar.setProgress(health / player1.getMaxhealth());
@@ -138,7 +202,7 @@ public class GameController {
             color = "#f44336";
         }
 
-        bar.setStyle(" -fx-accent: "+ color +";");
+        bar.setStyle(" -fx-accent: " + color + ";");
     }
 
     @FXML
@@ -172,17 +236,17 @@ public class GameController {
         healthbar(playerHealthDisplay1, playerHealth1);
         healthbar(playerHealthDisplay2, playerHealth2);
 
-        playerLabelEcon1.setText(" "+ playerEcon1);
-        playerLabelEcon2.setText(" "+ playerEcon2);
+        playerLabelEcon1.setText(" " + playerEcon1);
+        playerLabelEcon2.setText(" " + playerEcon2);
 
         if (playerHealth1 <= 0 || playerHealth2 <= 0) {
             Platform.runLater(() -> {
                 if (playerHealth1 > 0) {
-                    System.out.println(playerName1+ ", Won!");
+                    System.out.println(playerName1.getText() + ", Won!");
                 }
 
                 if (playerHealth2 > 0) {
-                    System.out.println(playerName2+ ", Won!");
+                    System.out.println(playerName2.getText() + ", Won!");
                 }
             });
         }
@@ -197,25 +261,22 @@ public class GameController {
                     playerEcon2 += 15;
 
                     Platform.runLater(() -> {
-                        playerLabelEcon1.setText(" "+ playerEcon1);
-                        playerLabelEcon2.setText(" "+ playerEcon2);
+                        playerLabelEcon1.setText(" " + playerEcon1);
+                        playerLabelEcon2.setText(" " + playerEcon2);
                     });
 
-                    Thread.sleep(6000);
+                    Thread.sleep(6000); // Delay to simulate economic growth
                 }
 
                 return null;
             }
         };
-
-        new Thread(giveMoney).start();
-    }
-
+        
     private void updateUI() {
 //       TODO: THIS IS WHERE WE PUT UI UPDATES. Like Changing the round when the
 //        TIMER IS UP, THE HEALTHBAR, ECONOMY ETC ETC
     }
-
+        
     public void startGameLoop() {
         game.startGame();
         Task<Void> gameLoop = new Task<>() {
@@ -234,4 +295,8 @@ public class GameController {
         new Thread(gameLoop).start();
     }
 
+        Thread econThread = new Thread(giveMoney);
+        econThread.setDaemon(true);
+        econThread.start();
+    }
 }
