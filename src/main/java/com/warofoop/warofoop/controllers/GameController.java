@@ -379,6 +379,9 @@ public class GameController {
                 isTrollOnCD();
             }
 
+            /*
+            TODO: Code the player 2 logic for cooldown same logic but more function
+             */
             case I -> player2.changeGold(-10);
             case O -> player2.changeGold(-20);
             case P -> player2.changeGold(-15);
