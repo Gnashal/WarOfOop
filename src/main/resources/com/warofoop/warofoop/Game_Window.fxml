@@ -5,82 +5,134 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePane" onKeyPressed="#hotKey" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../css/gameStyles.css" xmlns="http://javafx.com/javafx/22.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.GameController">
+<AnchorPane fx:id="gamePane" onKeyPressed="#hotKey" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../css/gameStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.GameController">
    <children>
-      <!-- Player 1 Pane -->
-      <Pane layoutX="305.0" layoutY="157.0" prefHeight="175.0" prefWidth="325.0" styleClass="playerMenu" stylesheets="@../../../css/gameStyles.css">
-         <children>
-            <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="10.0">
-               <Label fx:id="playerName1" textAlignment="CENTER">
-                  <font>
-                     <Font size="30.0" />
-                  </font>
-               </Label>
-               <HBox alignment="CENTER_LEFT" spacing="10.0">
-                  <Label text="Health">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <ProgressBar fx:id="playerHealthDisplay1" prefWidth="210.0" progress="1.0" styleClass="playerHealthBar" stylesheets="@../../../css/gameStyles.css" />
-               </HBox>
-               <HBox alignment="CENTER_LEFT" spacing="10.0">
-                  <Label text="Gold">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="playerLabelEcon1" text="0">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </HBox>
-            </VBox>
-         </children>
-      </Pane>
-
-      <!-- Player 2 Pane -->
-      <Pane layoutX="1168.0" layoutY="157.0" prefHeight="175.0" prefWidth="325.0" styleClass="playerMenu" stylesheets="@../../../css/gameStyles.css">
-         <children>
-            <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="10.0">
-               <Label fx:id="playerName2" textAlignment="CENTER">
-                  <font>
-                     <Font size="30.0" />
-                  </font>
-               </Label>
-               <HBox alignment="CENTER_LEFT" spacing="10.0">
-                  <Label text="Health">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <ProgressBar fx:id="playerHealthDisplay2" prefWidth="210.0" progress="1.0" styleClass="playerHealthBar" stylesheets="@../../../css/gameStyles.css" />
-               </HBox>
-               <HBox alignment="CENTER_LEFT" spacing="10.0">
-                  <Label text="Gold">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="playerLabelEcon2" text="0">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </HBox>
-            </VBox>
-         </children>
-      </Pane>
 
       <!-- Time Label -->
-      <Label fx:id="timeLabel" layoutX="850.0" layoutY="50.0" text="00" styleClass="timeDisplay" />
-      <Label fx:id="roundLabel" layoutX="850.0" layoutY="250.0" text="Round: 1" styleClass="roundDisplay" />
+      <Label fx:id="timeLabel" layoutX="932.0" layoutY="74.0" prefHeight="45.0" prefWidth="53.0" styleClass="timeDisplay" text="00">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Label fx:id="roundLabel" layoutX="900.0" layoutY="13.0" prefHeight="26.0" prefWidth="122.0" styleClass="roundDisplay" text="Round: 1">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
       <!-- Back Button -->
-      <Button fx:id="backButton" layoutX="900.0" layoutY="100.0" mnemonicParsing="false" onAction="#returnToPrevScene" text="Back" />
+      <Button fx:id="backButton" layoutX="43.0" layoutY="37.0" mnemonicParsing="false" onAction="#returnToPrevScene" text="Back" />
+      <ProgressBar fx:id="playerHealthDisplay1" layoutX="125.0" layoutY="51.0" prefHeight="41.0" prefWidth="749.0" progress="1.0" styleClass="playerHealthBar" stylesheets="@../../../css/gameStyles.css" />
+      <ProgressBar fx:id="playerHealthDisplay2" layoutX="1049.0" layoutY="51.0" prefHeight="41.0" prefWidth="749.0" progress="1.0" styleClass="playerHealthBar" stylesheets="@../../../css/gameStyles.css" />
+
+      <!-- Player 1 Details -->
+      <VBox alignment="CENTER" layoutX="43.0" layoutY="130.0" prefHeight="200.0" prefWidth="246.0" spacing="10.0">
+         <HBox prefWidth="250.0" spacing="10.0">
+            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="109.0" text="Name">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="playerName1" prefHeight="35.0" prefWidth="148.0" text="Player 1 Name">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Gold">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="playerLabelEcon1" prefHeight="35.0" prefWidth="129.0" text="0">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Unit Cap">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="playerLabelEcon11" prefHeight="35.0" prefWidth="130.0" text="0">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Current">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+               </Label>
+               <Label fx:id="playerLabelEcon111" prefHeight="35.0" prefWidth="130.0" text="0">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+      </VBox>
+
+      <!-- Player 2 Details -->
+      <VBox alignment="CENTER" layoutX="1627.0" layoutY="130.0" prefHeight="200.0" prefWidth="252.0" spacing="10.0">
+         <HBox prefWidth="250.0" spacing="10.0">
+            <Label fx:id="playerName2" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="Player 2 Name">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label text="Name">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label fx:id="playerLabelEcon2" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="137.0" text="0">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label text="Gold">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label fx:id="playerLabelEcon21" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="0">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label text="Unit Cap">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="138.0" spacing="10.0">
+            <children>
+               <Label fx:id="playerLabelEcon211" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="0">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+               </Label>
+               <Label text="Current">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+      </VBox>
+      <AnchorPane layoutX="196.0" layoutY="483.0" prefHeight="200.0" prefWidth="192.0" styleClass="baseTower" />
+      <AnchorPane layoutX="1593.0" layoutY="452.0" prefHeight="200.0" prefWidth="202.0" styleClass="baseTower" />
    </children>
 </AnchorPane>
