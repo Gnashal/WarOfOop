@@ -69,13 +69,8 @@ public class LobbyController {
 
     // Set the SceneManager
     public void setSceneManager(SceneManager sceneManager) {
-        if (this.sceneManager == null) {
-            System.out.println("Setting SceneManager in Lobby Controller");
-        } else {
-            System.out.println("SceneManager already set");
-        }
-        System.out.println("Scene Manager set");
         this.sceneManager = sceneManager;
+        System.out.println("SceneManager has been set in LobbyController.");
     }
 
     // Check if both players are ready and switch to the game scene

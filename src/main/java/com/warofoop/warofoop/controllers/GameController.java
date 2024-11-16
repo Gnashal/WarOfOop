@@ -1,30 +1,25 @@
 package com.warofoop.warofoop.controllers;
 
 import com.warofoop.warofoop.SceneManager;
-import com.warofoop.warofoop.build.Game;
-import com.warofoop.warofoop.build.Player;
+import com.warofoop.warofoop.build.*;
 import javafx.application.Platform;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
+
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public class GameController {
 
@@ -32,178 +27,211 @@ public class GameController {
     private Player player1;
     private Player player2;
     private Game game;
+    private String map;
+    public float playerHealth1;
+    public float playerHealth2;
 
-    private IntegerProperty deployTime = new SimpleIntegerProperty(20);
-    private IntegerProperty startTime = new SimpleIntegerProperty(30);
-    private IntegerProperty intervalTime = new SimpleIntegerProperty(3);
-    private int roundCount = 1;
-
-    @FXML
-    private AnchorPane gamePane;
-    @FXML
-    private Button backButton;
-    @FXML
-    private Label playerName1, playerName2, playerLabelEcon1, playerLabelEcon2, timeLabel, roundLabel;
-    @FXML
-    private ProgressBar playerHealthDisplay1, playerHealthDisplay2;
+    public int playerEcon1;
+    public int playerEcon2;
+    public int roundCount;
 
     @FXML
-    public void initialize() {
-        roundLabel.setText("Round: " + roundCount);
+    AnchorPane gamePane;
 
-        // Timeline for game logic updates
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), this::updateGameLogic)
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
+    @FXML
+    Button backButton;
 
-    private void updateGameLogic(ActionEvent event) {
-        if (game.isGameOver()) {
-            return;
-        }
+    @FXML
+    private Label playerName1;
 
-        if (deployTime.get() > 0) {
-            deployTime.set(deployTime.get() - 1);
-        } else if (intervalTime.get() > 0) {
-            intervalTime.set(intervalTime.get() - 1);
-        } else if (startTime.get() > 0) {
-            startTime.set(startTime.get() - 1);
-        } else {
-            nextRound();
-        }
+    @FXML
+    private Label playerName2;
 
-        updateUI();
-    }
+    @FXML
+    private Label playerLabelEcon1;
 
-    private void nextRound() {
-        roundCount++;
-        deployTime.set(20); // Selection Phase
-        intervalTime.set(3); // Interval
-        startTime.set(30); // Attacking Phase / Spawning Phase
-        roundLabel.setText("Round: " + roundCount);
-        System.out.println("Round " + roundCount + " begins!");
-    }
+    @FXML
+    private Label playerLabelEcon2;
 
-    private void updateUI() {
-        updateTimeLabel();
-        updateHealthBars();
-        updateEconomyLabels();
-    }
+    @FXML
+    private ProgressBar playerHealthDisplay1;
 
-    private void updateTimeLabel() {
-        if (deployTime.get() > 0) {
-            timeLabel.setText(String.format("%02d", deployTime.get()));
-        } else if (intervalTime.get() > 0) {
-            timeLabel.setText(String.format("%02d", intervalTime.get()));
-        } else if (startTime.get() > 0) {
-            timeLabel.setText(String.format("%02d", startTime.get()));
-        }
-    }
+    @FXML
+    private ProgressBar playerHealthDisplay2;
 
-    private void updateHealthBars() {
-        updateHealthBar(playerHealthDisplay1, player1.getCurrhealth());
-        updateHealthBar(playerHealthDisplay2, player2.getCurrhealth());
-    }
-
-    private void updateHealthBar(ProgressBar bar, float health) {
-        bar.setProgress(health / player1.getMaxhealth());
-
-        String color = health > 70 ? "#4caf50" : (health > 30 ? "#ffeb3b" : "#f44336");
-        bar.setStyle("-fx-accent: " + color + ";");
-    }
-
-    private void updateEconomyLabels() {
-        playerLabelEcon1.setText(String.valueOf(player1.getGold()));
-        playerLabelEcon2.setText(String.valueOf(player2.getGold()));
-    }
 
     public void setSceneManager(SceneManager sceneManager) {
         if (this.sceneManager == null) {
-            System.out.println("Setting SceneManager in Game Controller");
-            this.sceneManager = sceneManager;
+            System.out.println("Setting SceneManager for the first time");
+        } else {
+            System.out.println("SceneManager already set");
         }
+        System.out.println("Scene Manager set");
+        this.sceneManager = sceneManager;
     }
+
+
 
     public void setGame(Game newGame) throws IOException {
         this.player1 = newGame.getPlayer1();
         this.player2 = newGame.getPlayer2();
         this.game = newGame;
-
+        this.map = newGame.getMap();
+        System.out.println(player1.getName() + " " + player2.getName());
+        System.out.println(map);
         initializeGame();
     }
 
-    private void initializeGame() {
-        roundCount = 1;
-        playerName1.setText(player1.getName());
-        playerName2.setText(player2.getName());
-        updateHealthBars();
-        updateEconomyLabels();
-        setGameBackground();
-    }
-
-    private void setGameBackground() {
+    public void setGameBackground() {
         try {
-            String mapPath = "/Maps/" + game.getMap();
+            String mapPath = "/Maps/" + map;
             URL mapUrl = getClass().getResource(mapPath);
             if (mapUrl == null) {
                 System.out.println("Map file not found at: " + mapPath);
                 return;
             }
-
             Image mapImage = new Image(mapUrl.toExternalForm());
             BackgroundSize backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true);
-            gamePane.setBackground(new Background(new BackgroundImage(
-                    mapImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize
-            )));
-        } catch (Exception e) {
-            System.out.println("Error setting background: " + e.getMessage());
+            gamePane.setBackground(new Background(new BackgroundImage( mapImage,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.CENTER,
+                    backgroundSize)));
+            System.out.println("New Background Image set");
+        } catch (NullPointerException e) {
+            System.out.println("Error here:" + e);
+            return;
         }
+
+    }
+
+    public void initializeGame() throws IOException {
+        playerHealth1 = player1.getCurrhealth();
+        playerHealth2 = player2.getCurrhealth();
+        playerEcon1 = player1.getGold();
+        playerEcon2 = player2.getGold();
+        playerName1.setText(player1.getName());
+        playerName2.setText(player2.getName());
+
+        gamePane.setFocusTraversable(true);
+        gamePane.requestFocus();
+        setGameBackground();
+        gamePane.setOnKeyPressed(this::hotKey);
+
+        healthbar(playerHealthDisplay1, player1.getCurrhealth());
+        healthbar(playerHealthDisplay2, player1.getCurrhealth());
+        game.startGame();
+        runEcon();
+    }
+
+
+    public void healthbar(ProgressBar bar, float health) {
+        bar.setProgress(health / player1.getMaxhealth());
+
+        String color;
+
+        if (health > 70f) {
+            color = "#4caf50";
+        } else if (health > 30f) {
+            color = "#ffeb3b";
+        } else {
+            color = "#f44336";
+        }
+
+        bar.setStyle(" -fx-accent: "+ color +";");
     }
 
     @FXML
     public void returnToPrevScene() throws IOException {
-        if (sceneManager != null) {
-            game.endGame();
-            sceneManager.switchToLobby();
-        } else {
-            System.out.println("Scene Manager not set!");
+        if (sceneManager == null) {
+            System.out.println("Scene Manager Null");
+            return;
         }
+        System.out.println("Switched to Game");
+        sceneManager.switchToLobby();
     }
 
     @FXML
     protected void hotKey(KeyEvent event) {
         switch (event.getCode()) {
-            case Q -> player1.changeGold(-10);
-            case W -> player1.changeGold(-20);
-            case E -> player1.changeGold(-15);
+            case Q -> playerEcon1 -= 10;
+            case W -> playerEcon1 -= 20;
+            case E -> playerEcon1 -= 15;
 
-            case I -> player2.changeGold(-10);
-            case O -> player2.changeGold(-20);
-            case P -> player2.changeGold(-15);
+            case I -> playerEcon2 -= 10;
+            case O -> playerEcon2 -= 20;
+            case P -> playerEcon2 -= 15;
 
-            case Z -> player1.changeHealth(-10);
-            case X -> player2.changeHealth(-10);
+            case Z -> playerHealth1 -= 10;
+            case X -> playerHealth2 -= 10;
         }
 
-        player1.validateHealth();
-        player2.validateHealth();
-        updateUI();
+        playerHealth1 = Math.max(playerHealth1, 0);
+        playerHealth2 = Math.max(playerHealth2, 0);
 
-        if (player1.isDefeated() || player2.isDefeated()) {
-            handleGameOver();
+        healthbar(playerHealthDisplay1, playerHealth1);
+        healthbar(playerHealthDisplay2, playerHealth2);
+
+        playerLabelEcon1.setText(" "+ playerEcon1);
+        playerLabelEcon2.setText(" "+ playerEcon2);
+
+        if (playerHealth1 <= 0 || playerHealth2 <= 0) {
+            Platform.runLater(() -> {
+                if (playerHealth1 > 0) {
+                    System.out.println(playerName1+ ", Won!");
+                }
+
+                if (playerHealth2 > 0) {
+                    System.out.println(playerName2+ ", Won!");
+                }
+            });
         }
     }
 
-    private void handleGameOver() {
-        Platform.runLater(() -> {
-            if (player1.isDefeated()) {
-                System.out.println(player2.getName() + " won!");
-            } else if (player2.isDefeated()) {
-                System.out.println(player1.getName() + " won!");
+    private void runEcon() {
+        Task<Void> giveMoney = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                while (playerHealth1 > 0 && playerHealth2 > 0) {
+                    playerEcon1 += 15;
+                    playerEcon2 += 15;
+
+                    Platform.runLater(() -> {
+                        playerLabelEcon1.setText(" "+ playerEcon1);
+                        playerLabelEcon2.setText(" "+ playerEcon2);
+                    });
+
+                    Thread.sleep(6000);
+                }
+
+                return null;
             }
-        });
-    }
-}
+        };
 
+        new Thread(giveMoney).start();
+    }
+
+    private void updateUI() {
+//       TODO: THIS IS WHERE WE PUT UI UPDATES. Like Changing the round when the
+//        TIMER IS UP, THE HEALTHBAR, ECONOMY ETC ETC
+    }
+
+    public void startGameLoop() {
+        game.startGame();
+        Task<Void> gameLoop = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                while (!game.isGameOver()) {
+                    Platform.runLater(() -> {
+                        updateUI();
+                    });
+                    game.updateGameLogic();
+                    Thread.sleep(1000 / 60);
+                }
+                return null;
+            }
+        };
+        new Thread(gameLoop).start();
+    }
+
+}
