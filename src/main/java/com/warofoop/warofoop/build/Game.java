@@ -35,6 +35,10 @@ public class Game {
         return map;
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
     public void startGame() {
         if (gameState == GameState.DEFAULT) {
             gameState = GameState.ONGOING;
@@ -44,23 +48,22 @@ public class Game {
         }
     }
 
-    public void nextRound() {
-        if (gameState == GameState.ONGOING) {
-            roundCount++;
-        }
-        if (player1.getCurrhealth() <= 0 || player2.getCurrhealth() <= 0) {
-            endGame();
-        }
+    public void endGame() {
+        this.gameState = GameState.END;
     }
 
-    public void endGame() {
-        gameState = GameState.END;
-        if (player1.getCurrhealth() <= 0) {
-            System.out.println("PLAYER 2 WINS");
-        } else if (player2.getCurrhealth() <= 0) {
-            System.out.println("PLAYER 1 WINS");
+   public void updateGameLogic() {
+        if (player1.getCurrhealth() <= 0 || player2.getCurrhealth() <= 0 ) {
+            endGame();
         }
-    }
+
+//        TODO: ADD UPDATES TO GAME LOGIC HERE
+        roundCount++;
+   }
+
+  public boolean isGameOver() {
+        return gameState == GameState.END;
+  }
 
 
 

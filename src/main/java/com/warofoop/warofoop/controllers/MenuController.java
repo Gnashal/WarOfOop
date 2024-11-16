@@ -47,7 +47,13 @@ public class MenuController {
     // Exit the game
     @FXML
     public void exitGame() {
-        Platform.exit();
-        System.out.println("Exit Successful");
+        try {
+            System.out.println("Exiting Application..");
+            Platform.exit();
+            System.out.println("Exit Successful");
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
