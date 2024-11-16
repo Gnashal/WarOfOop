@@ -25,7 +25,7 @@ public class MenuController {
     // Setter method to inject SceneManager
     public void setSceneManager(SceneManager sceneManager) {
         if (this.sceneManager == null) {
-            System.out.println("Setting SceneManager for the first time");
+            System.out.println("Setting SceneManager in Menu Controller");
         } else {
             System.out.println("SceneManager already set");
         }
@@ -47,7 +47,13 @@ public class MenuController {
     // Exit the game
     @FXML
     public void exitGame() {
-        Platform.exit();
-        System.out.println("Exit Successful");
+        try {
+            System.out.println("Exiting Application..");
+            Platform.exit();
+            System.out.println("Exit Successful");
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,7 +15,7 @@
       <Pane layoutX="305.0" layoutY="157.0" prefHeight="175.0" prefWidth="325.0" styleClass="playerMenu" stylesheets="@../../../css/gameStyles.css">
          <children>
             <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="10.0">
-               <Label fx:id="playerName1"  textAlignment="CENTER">
+               <Label fx:id="playerName1" textAlignment="CENTER">
                   <font>
                      <Font size="30.0" />
                   </font>
@@ -77,6 +77,9 @@
          </children>
       </Pane>
 
+      <!-- Time Label -->
+      <Label fx:id="timeLabel" layoutX="850.0" layoutY="50.0" text="00" styleClass="timeDisplay" />
+      <Label fx:id="roundLabel" layoutX="850.0" layoutY="250.0" text="Round: 1" styleClass="roundDisplay" />
       <!-- Back Button -->
       <Button fx:id="backButton" layoutX="900.0" layoutY="100.0" mnemonicParsing="false" onAction="#returnToPrevScene" text="Back" />
    </children>
