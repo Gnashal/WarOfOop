@@ -24,8 +24,6 @@ public class LobbyController {
             "/Maps/DebugMap2.png" // debug maps
     };
 
-
-
     @FXML
     private ListView<String> imageListView;
 
@@ -43,7 +41,7 @@ public class LobbyController {
     private AnchorPane lobbyPane;
 
     @FXML
-    private Button backButton, player1Button, player2Button;
+    private Button backButton, player1Button, player2Button, startButton;
 
     @FXML
     private Label statusLabel;
@@ -54,6 +52,7 @@ public class LobbyController {
     private boolean player1Ready = false;
     private boolean player2Ready = false;
     private boolean hasSelectedMap = false;
+    private boolean startGameReady = false;
 
     public Player getPlayer1() {
         return player1;
@@ -81,8 +80,9 @@ public class LobbyController {
     // Check if both players are ready and switch to the game scene
     private void p1p2_ready() throws IOException {
         if (player1Ready && player2Ready && hasSelectedMap) {
-            statusLabel.setText("Both players are ready! Starting the game...");
+            statusLabel.setText("Both players are ready! Ready to Start the game!");
             System.out.println("Both players ready, switching to game scene...");
+            startButton.setOpacity(1.0);
 
             // Ga-initializeGame kog Player and Game classes here and to be passed to the Game Controller
             String name1 = playerName1.getText();
@@ -91,8 +91,11 @@ public class LobbyController {
             player1 = new Player(100f, 500, name1, 10);
             player2 = new Player(100f, 500, name2, 10);
             game = new Game(player1, player2, MapName);
-            goToGame();
+            if(startGameReady){
+                goToGame();
+            }
         } else {
+            startButton.setOpacity(0.45);
             updateStatusLabel();
         }
     }
@@ -100,18 +103,35 @@ public class LobbyController {
     @FXML
     public void toggle_player1(ActionEvent event) throws IOException {
         player1Ready = !player1Ready;
-        player1Button.setText(player1Ready ? "Unready" : "Ready!");
-        System.out.println("Player 1 ready: " + player1Ready);
-        p1p2_ready();
+        if (!playerName1.getText().isEmpty()) {
+            player1Button.setText(player1Ready ? "Unready" : "Ready!");
+            System.out.println("Player 1 ready: " + player1Ready);
+            p1p2_ready();
+        }
     }
 
     @FXML
     public void toggle_player2(ActionEvent event) throws IOException {
         player2Ready = !player2Ready;
-        player2Button.setText(player2Ready ? "Unready" : "Ready!");
-        System.out.println("Player 2 ready: " + player2Ready);
-        p1p2_ready();
+        if(!playerName2.getText().isEmpty()) {
+            player2Button.setText(player2Ready ? "Unready" : "Ready!");
+            System.out.println("Player 2 ready: " + player2Ready);
+            p1p2_ready();
+        }
     }
+
+    @FXML
+    public void toggleStartGame(ActionEvent event) throws IOException {
+        if (player1Ready && player2Ready && hasSelectedMap) {
+            startGameReady = !startGameReady;
+            System.out.println("Toggling Start Game. Start Game Ready: " + startGameReady);
+            p1p2_ready();
+        } else {
+            System.out.println("Cannot start game: preconditions not met.");
+        }
+    }
+
+
 
     // Update status label based on which players are ready
     private void updateStatusLabel() {
