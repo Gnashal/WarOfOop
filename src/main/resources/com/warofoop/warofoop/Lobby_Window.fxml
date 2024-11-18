@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="lobbyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="root" stylesheets="@../../../css/lobbyStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.LobbyController">
+<AnchorPane fx:id="lobbyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  styleClass="root" stylesheets="@../../../css/lobbyStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.LobbyController">
    <children>
       <AnchorPane layoutX="147.0" layoutY="85.0" opacity="0.61" prefHeight="856.0" prefWidth="1633.0" style="-fx-background-color: black; -fx-background-radius: 40; -fx-border-radius: 40;" styleClass="BG_User1">
          <effect>
