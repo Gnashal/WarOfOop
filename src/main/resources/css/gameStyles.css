@@ -6,6 +6,10 @@
     -fx-border-radius: 5px;
 }
 
+.baseTower {
+    -fx-background-image: url('../image/baseTower.png');
+}
+
 .playerHealthBar {
     -fx-background-color: #333;
     -fx-border-width: 3px;
@@ -33,4 +37,6 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
+
+
 

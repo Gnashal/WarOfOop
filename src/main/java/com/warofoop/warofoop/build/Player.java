@@ -53,5 +53,18 @@ public class Player {
     public void setUnitcount(int unitcount) {
         this.unitcount = unitcount;
     }
+    public boolean isDefeated() {
+        return getCurrhealth() <= 0;
+    }
+
+    public void validateHealth() {
+        this.currhealth = Math.max(0, Math.min(this.currhealth, this.maxhealth));
+    }
+    public void changeHealth(float h) {
+        this.currhealth += h;
+    }
+    public void changeGold(int g) {
+        this.gold += g;
+    }
 }
 
