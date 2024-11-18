@@ -210,5 +210,77 @@
             </HBox>
          </children>
       </VBox>
+      <VBox layoutX="1448.0" layoutY="691.0" prefHeight="100.0" prefWidth="100.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="100.0">
+               <children>
+                  <StackPane fx:id="archerStack2" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="archerIcon2" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/archer.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle fx:id="archerCDOver2" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="knightStack2" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="knightIcon2" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/knight.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle fx:id="knightCDOver2" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="footmanStack2" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="footmanIcon2" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/footman.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle fx:id="footmanCDOver2" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="100.0">
+               <children>
+                  <StackPane fx:id="trollStack2" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="trollIcon2" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/troll.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle fx:id="trollCDOver2" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="ogreStack2" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="ogreIcon2" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/ogre.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle fx:id="ogreCDOver2" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="orcStack2" prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="orcIcon2" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/goblin.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle fx:id="orcCDOver2" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
