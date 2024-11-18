@@ -220,8 +220,8 @@ public class GameController {
 
             archerCDOver.setFill(Color.BLACK);
             archerCDOver.setOpacity(0.5);
-            archerCDOver.setWidth(100.0);
-            archerCDOver.setHeight(100.0);
+            archerCDOver.setWidth(75.0);
+            archerCDOver.setHeight(75.0);
 
             if (!archerStack.getChildren().contains(archerCDOver)) {
                 archerStack.getChildren().add(archerCDOver);
@@ -253,8 +253,8 @@ public class GameController {
 
             footmanCDOver.setFill(Color.BLACK);
             footmanCDOver.setOpacity(0.5);
-            footmanCDOver.setWidth(100.0);
-            footmanCDOver.setHeight(100.0);
+            footmanCDOver.setWidth(75.0);
+            footmanCDOver.setHeight(75.0);
 
             if (!footmanStack.getChildren().contains(footmanCDOver)) {
                 footmanStack.getChildren().add(footmanCDOver);
@@ -286,8 +286,8 @@ public class GameController {
 
             knightCDOver.setFill(Color.BLACK);
             knightCDOver.setOpacity(0.5);
-            knightCDOver.setWidth(100.0);
-            knightCDOver.setHeight(100.0);
+            knightCDOver.setWidth(75.0);
+            knightCDOver.setHeight(75.0);
 
             if (!knightStack.getChildren().contains(knightCDOver)) {
                 knightStack.getChildren().add(knightCDOver);
@@ -319,8 +319,8 @@ public class GameController {
 
             trollCDOver.setFill(Color.BLACK);
             trollCDOver.setOpacity(0.5);
-            trollCDOver.setWidth(100.0);
-            trollCDOver.setHeight(100.0);
+            trollCDOver.setWidth(75.0);
+            trollCDOver.setHeight(75.0);
 
             if (!trollStack.getChildren().contains(trollCDOver)) {
                 trollStack.getChildren().add(trollCDOver);
@@ -352,8 +352,8 @@ public class GameController {
 
             orcCDOver.setFill(Color.BLACK);
             orcCDOver.setOpacity(0.5);
-            orcCDOver.setWidth(100.0);
-            orcCDOver.setHeight(100.0);
+            orcCDOver.setWidth(75.0);
+            orcCDOver.setHeight(75.0);
 
             if (!orcStack.getChildren().contains(orcCDOver)) {
                 orcStack.getChildren().add(orcCDOver);
@@ -385,8 +385,8 @@ public class GameController {
 
             ogreCDOver.setFill(Color.BLACK);
             ogreCDOver.setOpacity(0.5);
-            ogreCDOver.setWidth(100.0);
-            ogreCDOver.setHeight(100.0);
+            ogreCDOver.setWidth(75.0);
+            ogreCDOver.setHeight(75.0);
 
             if (!ogreStack.getChildren().contains(ogreCDOver)) {
                 ogreStack.getChildren().add(ogreCDOver);
@@ -418,8 +418,8 @@ public class GameController {
 
             archerCDOver2.setFill(Color.BLACK);
             archerCDOver2.setOpacity(0.5);
-            archerCDOver2.setWidth(100.0);
-            archerCDOver2.setHeight(100.0);
+            archerCDOver2.setWidth(75.0);
+            archerCDOver2.setHeight(75.0);
 
             if (!archerStack2.getChildren().contains(archerCDOver2)) {
                 archerStack2.getChildren().add(archerCDOver2);
@@ -451,8 +451,8 @@ public class GameController {
 
             footmanCDOver2.setFill(Color.BLACK);
             footmanCDOver2.setOpacity(0.5);
-            footmanCDOver2.setWidth(100.0);
-            footmanCDOver2.setHeight(100.0);
+            footmanCDOver2.setWidth(75.0);
+            footmanCDOver2.setHeight(75.0);
 
             if (!footmanStack2.getChildren().contains(footmanCDOver2)) {
                 footmanStack2.getChildren().add(footmanCDOver2);
@@ -483,8 +483,8 @@ public class GameController {
             isKnightCD2 = true;
             knightCDOver2.setFill(Color.BLACK);
             knightCDOver2.setOpacity(0.5);
-            knightCDOver2.setWidth(100.0);
-            knightCDOver2.setHeight(100.0);
+            knightCDOver2.setWidth(75.0);
+            knightCDOver2.setHeight(75.0);
 
             if (!knightStack2.getChildren().contains(knightCDOver2)) {
                 knightStack2.getChildren().add(knightCDOver2);
@@ -516,8 +516,8 @@ public class GameController {
 
             trollCDOver2.setFill(Color.BLACK);
             trollCDOver2.setOpacity(0.5);
-            trollCDOver2.setWidth(100.0);
-            trollCDOver2.setHeight(100.0);
+            trollCDOver2.setWidth(75.0);
+            trollCDOver2.setHeight(75.0);
 
             if (!trollStack2.getChildren().contains(trollCDOver2)) {
                 trollStack2.getChildren().add(trollCDOver2);
@@ -549,8 +549,8 @@ public class GameController {
 
             orcCDOver2.setFill(Color.BLACK);
             orcCDOver2.setOpacity(0.5);
-            orcCDOver2.setWidth(100.0);
-            orcCDOver2.setHeight(100.0);
+            orcCDOver2.setWidth(75.0);
+            orcCDOver2.setHeight(75.0);
 
             if (!orcStack2.getChildren().contains(orcCDOver2)) {
                 orcStack2.getChildren().add(orcCDOver2);
@@ -582,8 +582,8 @@ public class GameController {
 
             ogreCDOver2.setFill(Color.BLACK);
             ogreCDOver2.setOpacity(0.5);
-            ogreCDOver2.setWidth(100.0);
-            ogreCDOver2.setHeight(100.0);
+            ogreCDOver2.setWidth(75.0);
+            ogreCDOver2.setHeight(75.0);
 
             if (!ogreStack2.getChildren().contains(ogreCDOver2)) {
                 ogreStack2.getChildren().add(ogreCDOver2);
