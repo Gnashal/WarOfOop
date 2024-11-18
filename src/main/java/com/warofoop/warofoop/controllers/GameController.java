@@ -201,7 +201,7 @@ public class GameController {
     public void returnToPrevScene() throws IOException {
         if (sceneManager != null) {
             game.endGame();
-            sceneManager.switchToLobby();
+            sceneManager.reloadLobby();
         } else {
             System.out.println("Scene Manager not set!");
         }
