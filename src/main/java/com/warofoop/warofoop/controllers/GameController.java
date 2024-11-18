@@ -712,6 +712,7 @@ public class GameController {
                 gameLoop.stop();
 //                gamePane.setEffect(blurEffect); //BLUR
                 gamePane.setStyle("-fx-background-color: black;");
+                gameText.setOpacity(0);
                 gameText.setText(player2.getName() + " Won!");
                 applyZoomInAndFadeOutEffect(gameText);
             } else if (player2.isDefeated()) {
