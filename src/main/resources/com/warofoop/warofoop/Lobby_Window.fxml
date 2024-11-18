@@ -16,62 +16,55 @@
             <Shadow height="59.1" radius="34.9125" width="82.55" />
          </effect>
       </AnchorPane>
-      <AnchorPane layoutX="1208.0" layoutY="563.0" prefHeight="213.0" prefWidth="332.0" style="-fx-border-color: white; -fx-border-radius: 10;" styleClass="BG_User1" />
-      <AnchorPane layoutX="1207.0" layoutY="300.0" prefHeight="213.0" prefWidth="332.0" style="-fx-border-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="BG_User1" />
+      <AnchorPane layoutX="1208.0" layoutY="504.0" prefHeight="213.0" prefWidth="332.0" style="-fx-border-color: white; -fx-border-radius: 10;" styleClass="BG_User1" />
+      <AnchorPane layoutX="1207.0" layoutY="241.0" prefHeight="213.0" prefWidth="332.0" style="-fx-border-color: white; -fx-border-radius: 10; -fx-background-radius: 10;" styleClass="BG_User1" />
       <Button fx:id="backButton" layoutX="233.0" layoutY="148.0" mnemonicParsing="false" onAction="#returnToPrevScene" opacity="0.67" prefHeight="51.0" prefWidth="114.0" styleClass="backButton" text="Back" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="25.0" />
          </font>
       </Button>
       <!-- Player 1 label and input -->
-      <Label alignment="CENTER" layoutX="1248.0" layoutY="277.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px;          -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player 1" textFill="WHITE" wrapText="true">
+      <Label alignment="CENTER" layoutX="1248.0" layoutY="218.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px;          -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player 1" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="playerName1" layoutX="1248.0" layoutY="346.0" prefHeight="50.0" prefWidth="250.0" promptText="Player One Name" style="-fx-background-radius: 2;" styleClass="inputName">
+      <TextField fx:id="playerName1" layoutX="1248.0" layoutY="287.0" prefHeight="50.0" prefWidth="250.0" promptText="Player One Name" style="-fx-background-radius: 2;" styleClass="inputName">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </TextField>
-      <Button fx:id="player1Button" contentDisplay="CENTER" layoutX="1273.0" layoutY="418.0" onAction="#toggle_player1" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+      <Button fx:id="player1Button" contentDisplay="CENTER" layoutX="1273.0" layoutY="359.0" onAction="#toggle_player1" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Button>
 
       <!-- Player 2 label and input -->
-      <Label alignment="CENTER" layoutX="1248.0" layoutY="540.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player 2" textFill="WHITE" wrapText="true">
+      <Label alignment="CENTER" layoutX="1248.0" layoutY="481.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Player 2" textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="playerName2" layoutX="1248.0" layoutY="612.0" prefHeight="50.0" prefWidth="250.0" promptText="Player Two Name" style="-fx-border-radius: 2;" styleClass="inputName">
+      <TextField fx:id="playerName2" layoutX="1248.0" layoutY="553.0" prefHeight="50.0" prefWidth="250.0" promptText="Player Two Name" style="-fx-border-radius: 2;" styleClass="inputName">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </TextField>
 
       <!-- Ready buttons -->
-      <Button fx:id="player2Button" contentDisplay="CENTER" layoutX="1273.0" layoutY="688.0" onAction="#toggle_player2" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
+      <Button fx:id="player2Button" contentDisplay="CENTER" layoutX="1273.0" layoutY="629.0" onAction="#toggle_player2" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="readyButton" text="Ready!" textAlignment="CENTER">
          <font>
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Button>
-
-                  <!-- Test Game buttons -->
-      <Button fx:id="nextButton" layoutX="235.0" layoutY="246.0" mnemonicParsing="false" onAction="#goToGame" prefHeight="51.0" prefWidth="114.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="back-button" text="Test Game Open" textAlignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="23.0" />
-         </font>
-      </Button>
-      <Label fx:id="statusLabel" alignment="CENTER" layoutX="406.0" layoutY="279.0" prefHeight="85.0" prefWidth="740.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="BG_User1" text="Waiting for both players to be ready..." textFill="WHITE" wrapText="true">
+      <Label fx:id="statusLabel" alignment="CENTER" layoutX="406.0" layoutY="220.0" prefHeight="85.0" prefWidth="740.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="BG_User1" text="Waiting for both players to be ready..." textFill="WHITE" wrapText="true">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
 
-      <AnchorPane layoutX="407.0" layoutY="447.0" prefHeight="327.0" prefWidth="734.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 15;" styleClass="BG_User1">
+      <AnchorPane layoutX="407.0" layoutY="388.0" prefHeight="327.0" prefWidth="734.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 15;" styleClass="BG_User1">
          <children>
             <ImageView fx:id="imageView" fitHeight="240.0" fitWidth="379.0" layoutX="28.0" layoutY="53.0" preserveRatio="true" styleClass="imageView" />
             <Label alignment="CENTER" layoutX="36.0" layoutY="-20.0" prefHeight="50.0" prefWidth="214.0" style="-fx-background-color: black; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: white; -fx-border-width: 2;" styleClass="playername" text="Map" textFill="WHITE" wrapText="true">
@@ -90,6 +83,11 @@
                   <Font name="System Bold" size="12.0" />
                </font></Button>
          </children></AnchorPane>
+      <Button fx:id="startButton" layoutX="819.0" layoutY="751.0" mnemonicParsing="false" onAction="#toggleStartGame" opacity="0.54" prefHeight="61.0" prefWidth="281.0" style="-fx-background-color: green; -fx-background-radius: 10;" styleClass="play-button" text="Start Game" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Button>
 
    </children>
 </AnchorPane>
