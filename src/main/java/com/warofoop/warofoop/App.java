@@ -21,7 +21,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         try {
             SceneManager sceneManager = new SceneManager(stage);
-            sceneManager.switchToMainMenu();
+            stage.setFullScreenExitHint(""); // Disable the "Press ESC" message
+            stage.setFullScreen(true);
+            stage.setScene(sceneManager.getMainMenuScene());
+            stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
