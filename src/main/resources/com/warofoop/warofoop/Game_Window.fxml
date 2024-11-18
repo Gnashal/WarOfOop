@@ -12,9 +12,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.Region?>
 <AnchorPane fx:id="gamePane" onKeyPressed="#hotKey" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../css/gameStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.GameController">
    <children>
-
+      <!--WINNER TEXT-->
+      <Label fx:id="gameText" layoutX="900.0" layoutY="500.0" alignment="CENTER" style="-fx-font-size: 64px; -fx-text-fill: white;" />
       <!-- Time Label -->
       <Label fx:id="timeLabel" layoutX="932.0" layoutY="74.0" prefHeight="45.0" prefWidth="53.0" styleClass="timeDisplay" text="00">
          <font>
@@ -82,7 +84,6 @@
             </children>
          </HBox>
       </VBox>
-
       <!-- Player 2 Details -->
       <VBox alignment="CENTER" layoutX="1627.0" layoutY="130.0" prefHeight="200.0" prefWidth="252.0" spacing="10.0">
          <HBox prefWidth="250.0" spacing="10.0">

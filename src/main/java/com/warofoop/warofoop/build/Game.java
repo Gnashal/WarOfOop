@@ -123,7 +123,11 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        return gameState == GameState.END;
+        if(gameState == GameState.ONGOING && player1.getCurrhealth() <= 0 || player2.getCurrhealth() <= 0) {
+            gameState = GameState.END;
+            return true;
+        }
+        return false;
     }
 
     // Method to get the formatted time in seconds since the game started
