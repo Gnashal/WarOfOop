@@ -21,7 +21,8 @@ import java.util.Objects;
 public class LobbyController {
     private final String[] imagePaths = {
             "/Maps/DebugMap.png", // debug maps
-            "/Maps/DebugMap2.png" // debug maps
+            "/Maps/DebugMap2.png", // debug maps
+            "/Maps/BG1.png"
     };
 
     @FXML
@@ -104,19 +105,28 @@ public class LobbyController {
     public void toggle_player1(ActionEvent event) throws IOException {
         player1Ready = !player1Ready;
         if (!playerName1.getText().isEmpty()) {
+            player1Button.setStyle("-fx-background-color: " + (player1Ready ? "#228B22" : "#FFFFFF") + "; -fx-background-radius: 10px;");
             player1Button.setText(player1Ready ? "Unready" : "Ready!");
             System.out.println("Player 1 ready: " + player1Ready);
             p1p2_ready();
+        } else {
+            player1Button.setStyle("-fx-background-color: #FF0000; -fx-background-radius: 10px; -fx-font-size: 18px; -fx-font-weight: bold;");
+            player1Button.setText("Enter Name Please");
         }
     }
+
 
     @FXML
     public void toggle_player2(ActionEvent event) throws IOException {
         player2Ready = !player2Ready;
         if(!playerName2.getText().isEmpty()) {
+            player2Button.setStyle("-fx-background-color: " + (player2Ready ? "#228B22" : "#FFFFFF") + "; -fx-background-radius: 10px;");
             player2Button.setText(player2Ready ? "Unready" : "Ready!");
             System.out.println("Player 2 ready: " + player2Ready);
             p1p2_ready();
+        }else{
+            player2Button.setStyle("-fx-background-color: #FF0000; -fx-background-radius: 10px; -fx-font-size: 18px; -fx-font-weight: bold;");
+            player2Button.setText("Enter Name Please");
         }
     }
 
