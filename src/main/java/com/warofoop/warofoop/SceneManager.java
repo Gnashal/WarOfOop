@@ -16,7 +16,7 @@ public class SceneManager {
 
     private final Stage stage;
     private final Scene mainMenuScene;
-    private final Scene lobbyScene;
+    private  Scene lobbyScene;
     private  Scene gameScene;
 
 
@@ -59,5 +59,17 @@ public class SceneManager {
         gameController.setGame(game);
         stage.setScene(gameScene);
         stage.show();
+        stage.setFullScreen(true);
     }
+
+    public void reloadLobby() throws IOException {
+        FXMLLoader lobbyLoader = new FXMLLoader(getClass().getResource("/com/warofoop/warofoop/Lobby_Window.fxml"));
+        Parent lobbyRoot = lobbyLoader.load();
+        LobbyController lobbyController = lobbyLoader.getController();
+        lobbyController.setSceneManager(this);
+        lobbyScene = new Scene(lobbyRoot);
+        stage.setScene(lobbyScene);
+        stage.show();
+    }
+
 }
