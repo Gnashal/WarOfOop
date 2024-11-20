@@ -14,7 +14,6 @@ public class Player {
         this.maxhealth = maxhealth;
         this.name = name;
         this.threshold = threshold;
-        this.unitcount = 0;
     }
 
     public String getName() {
@@ -46,12 +45,6 @@ public class Player {
     }
     public void setThreshold(int threshold) {
         this.threshold = threshold;
-    }
-    public int getUnitcount() {
-        return unitcount;
-    }
-    public void setUnitcount(int unitcount) {
-        this.unitcount = unitcount;
     }
     public boolean isDefeated() {
         return getCurrhealth() <= 0;

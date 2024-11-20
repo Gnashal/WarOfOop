@@ -73,8 +73,9 @@ public class LobbyController {
             System.out.println("Setting SceneManager in Lobby Controller");
         } else {
             System.out.println("SceneManager already set");
+            return;
         }
-        System.out.println("Scene Manager set");
+        System.out.println("New Scene Manager set");
         this.sceneManager = sceneManager;
     }
 

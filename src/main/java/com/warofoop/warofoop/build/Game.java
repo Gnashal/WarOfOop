@@ -20,10 +20,10 @@ public class Game {
         this.player2 = player2;
         this.gameState = GameState.DEFAULT;
         this.map = selectedMap;
-        this.roundCount = 0;
+        this.roundCount = 1;
         this.deploy_time = 20;
-        this.start_time = 0;
-        this.interval_time = 0;
+        this.start_time = 30;
+        this.interval_time = 3;
     }
 
     public int getDeploy_time() {
