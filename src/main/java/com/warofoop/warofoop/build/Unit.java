@@ -1,13 +1,13 @@
 package com.warofoop.warofoop.build;
 
-public class UnitStat {
+public class Unit {
     //stats for units
     private float basedamage;
     private float health;
     private float armor;
     private int cost;
 
-    public UnitStat(float armor, float basedamage, int cost, float health) {
+    public Unit(float armor, float basedamage, int cost, float health) {
         this.armor = armor;
         this.basedamage = basedamage;
         this.cost = cost;

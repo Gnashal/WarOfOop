@@ -34,10 +34,10 @@ public class GameController {
     private Player player2;
     private Game game;
 
-    private IntegerProperty deployTime = new SimpleIntegerProperty(20);
-    private IntegerProperty startTime = new SimpleIntegerProperty(30);
-    private IntegerProperty intervalTime = new SimpleIntegerProperty(3);
-    private int roundCount = 1;
+    private final IntegerProperty deployTime = new SimpleIntegerProperty(20);
+    private final IntegerProperty startTime = new SimpleIntegerProperty(30);
+    private final IntegerProperty intervalTime = new SimpleIntegerProperty(3);
+    private int roundCount;
 
     public boolean isArcherCD = false;
     public boolean isFootmanCD = false;
@@ -112,28 +112,28 @@ public class GameController {
     }
 
     private void updateGameLogic(ActionEvent event) {
-        if (game.isGameOver()) {
-            return;
-        }
+        if (!game.isGameOver()) {
 
-        if (deployTime.get() > 0) {
-            deployTime.set(deployTime.get() - 1);
-        } else if (intervalTime.get() > 0) {
-            intervalTime.set(intervalTime.get() - 1);
-        } else if (startTime.get() > 0) {
-            startTime.set(startTime.get() - 1);
+            if (deployTime.get() > 0) {
+                deployTime.set(deployTime.get() - 1);
+            } else if (intervalTime.get() > 0) {
+                intervalTime.set(intervalTime.get() - 1);
+            } else if (startTime.get() > 0) {
+                startTime.set(startTime.get() - 1);
+            } else {
+                nextRound();
+            }
+            updateUI();
         } else {
-            nextRound();
+            handleGameOver();
         }
-
-        updateUI();
     }
 
     private void nextRound() {
         roundCount++;
-        deployTime.set(20); // Selection Phase
-        intervalTime.set(3); // Interval
-        startTime.set(30); // Attacking Phase / Spawning Phase
+        deployTime.set(game.getDeploy_time()); // Selection Phase
+        intervalTime.set(game.getInterval_time()); // Interval
+        startTime.set(game.getStart_time()); // Attacking Phase / Spawning Phase
         roundLabel.setText("Round: " + roundCount);
         System.out.println("Round " + roundCount + " begins!");
     }
@@ -192,6 +192,7 @@ public class GameController {
         roundCount = 1;
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
+        roundCount = game.getRoundCount();
         updateHealthBars();
         updateEconomyLabels();
         setGameBackground();
@@ -219,7 +220,9 @@ public class GameController {
     @FXML
     public void returnToPrevScene() throws IOException {
         if (sceneManager != null) {
-            game.endGame();
+            if (!game.isGameOver()) {
+                game.endGame();
+            }
             sceneManager.reloadLobby();
         } else {
             System.out.println("Scene Manager not set!");
@@ -685,9 +688,6 @@ public class GameController {
         player2.validateHealth();
         updateUI();
 
-        if (player1.isDefeated() || player2.isDefeated()) {
-            handleGameOver();
-        }
     }
 
     public void applyZoomInAndFadeOutEffect(Label gameLabel) {
@@ -707,23 +707,14 @@ public class GameController {
 
     private void handleGameOver() {
         Platform.runLater(() -> {
-            if (player1.isDefeated()) {
-                System.out.println(player2.getName() + " won!");
+            String winner = (player1.isDefeated()) ? player2.getName(): player1.getName();
+                System.out.println(winner + " won!");
                 gameLoop.stop();
-//                gamePane.setEffect(blurEffect); //BLUR
-                gamePane.setStyle("-fx-background-color: black;");
-                gameText.setOpacity(0);
-                gameText.setText(player2.getName() + " Won!");
+                gamePane.setStyle("-fx-background-color: gold;");
+                gameText.setOpacity(1);
+                gameText.setText(winner + " Won!");
                 applyZoomInAndFadeOutEffect(gameText);
-            } else if (player2.isDefeated()) {
-                System.out.println(player1.getName() + " won!");
-                gameLoop.stop();
-//                gamePane.setEffect(blurEffect); //BLUR
-                gamePane.setStyle("-fx-background-color: black;");
-                gameText.setText(player1.getName() + " Won!");
-                applyZoomInAndFadeOutEffect(gameText);
-
-            }
+                game.endGame();
         });
     }
 }
