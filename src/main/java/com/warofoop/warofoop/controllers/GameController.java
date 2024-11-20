@@ -4,6 +4,7 @@ import com.warofoop.warofoop.SceneManager;
 import com.warofoop.warofoop.build.Game;
 import com.warofoop.warofoop.build.Player;
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -53,6 +55,9 @@ public class GameController {
     public boolean isOrcCD2 = false;
     public boolean isOgreCD2 = false;
 
+
+    private boolean isPaused = false;
+
     @FXML
     private AnchorPane gamePane;
     @FXML
@@ -82,16 +87,28 @@ public class GameController {
     private Rectangle archerCDOver2, footmanCDOver2, knightCDOver2, trollCDOver2, orcCDOver2, ogreCDOver2;
 //  ==================================================================================================
 
+    public Timeline gameLoop;
+    //PLEASE USE THIS FOR THE GAMETIME LINE AS A WHOLE
+    //USED FOR PAUSING A GAME && RESUMING A GAME
+
+    @FXML
+    private Region overlay;
+
+    @FXML
+    private Label gameText;
+
+    @FXML
+    private GaussianBlur blurEffect = new GaussianBlur();
+
+
+
     @FXML
     public void initialize() {
-        roundLabel.setText("Round: " + roundCount);
-
-        // Timeline for game logic updates
-        Timeline timeline = new Timeline(
+        gameLoop = new Timeline(
                 new KeyFrame(Duration.seconds(1), this::updateGameLogic)
         );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+        gameLoop.play();
     }
 
     private void updateGameLogic(ActionEvent event) {
@@ -122,6 +139,8 @@ public class GameController {
     }
 
     private void updateUI() {
+        gameText.setText("Round: " + roundCount);
+        applyZoomInAndFadeOutEffect(gameText);
         updateTimeLabel();
         updateHealthBars();
         updateEconomyLabels();
@@ -671,12 +690,39 @@ public class GameController {
         }
     }
 
+    public void applyZoomInAndFadeOutEffect(Label gameLabel) {
+        // Scale transition (zoom-in effect for the label)
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), gameLabel);
+        scaleTransition.setToX(1.2);  // Zoom-in on X axis (horizontal scaling)
+        scaleTransition.setToY(1.2);  // Zoom-in on Y axis (vertical scaling)
+
+        // Fade transition (fade-out effect)
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), gameLabel);
+        fadeTransition.setToValue(0);  // Fade out to 0 opacity
+
+        // Play the transitions together
+        scaleTransition.play();
+        fadeTransition.play();
+    }
+
     private void handleGameOver() {
         Platform.runLater(() -> {
             if (player1.isDefeated()) {
                 System.out.println(player2.getName() + " won!");
+                gameLoop.stop();
+//                gamePane.setEffect(blurEffect); //BLUR
+                gamePane.setStyle("-fx-background-color: black;");
+                gameText.setOpacity(0);
+                gameText.setText(player2.getName() + " Won!");
+                applyZoomInAndFadeOutEffect(gameText);
             } else if (player2.isDefeated()) {
                 System.out.println(player1.getName() + " won!");
+                gameLoop.stop();
+//                gamePane.setEffect(blurEffect); //BLUR
+                gamePane.setStyle("-fx-background-color: black;");
+                gameText.setText(player1.getName() + " Won!");
+                applyZoomInAndFadeOutEffect(gameText);
+
             }
         });
     }
