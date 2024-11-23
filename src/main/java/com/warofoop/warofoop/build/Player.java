@@ -1,5 +1,8 @@
 package com.warofoop.warofoop.build;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private String name;
     private float currhealth;
@@ -7,6 +10,7 @@ public class Player {
     private int gold;
     private int threshold;
     private int unitcount;
+    private List<Unit> units;
 
     public Player(float maxhealth, int gold, String name, int threshold) {
         this.currhealth = maxhealth;
@@ -14,6 +18,7 @@ public class Player {
         this.maxhealth = maxhealth;
         this.name = name;
         this.threshold = threshold;
+        this.units = new ArrayList<>();
     }
 
     public String getName() {
@@ -48,6 +53,12 @@ public class Player {
     }
     public boolean isDefeated() {
         return getCurrhealth() <= 0;
+    }
+    public void addUnit(Unit unit) {
+        units.add(unit);
+    }
+    public List<Unit> getUnits() {
+        return units;
     }
 
     public void validateHealth() {
