@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
@@ -26,8 +27,27 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class GameController {
+    private final String[] playerBaseImagePaths = {
+            "/assets/Player1Castle/Player1FullHp.png",
+            "/assets/Player1Castle/Player1HalfHp.png",
+            "/assets/Player1Castle/Player1NoHp.png",
+            "/assets/Player2Castle/Player2FullHP.png",
+            "/assets/Player2Castle/Player2MidHP.png",
+            "/assets/Player2Castle/Player2NoHP.png"
+    };
+
+    @FXML
+    private ListView<String> imageListView;
+    String selectedImage;
+
+    @FXML
+    private ImageView player1Castle;
+
+    @FXML
+    private ImageView player2Castle;
 
     private SceneManager sceneManager;
     private Player player1;
@@ -165,6 +185,7 @@ public class GameController {
         bar.setProgress(health / player1.getMaxhealth());
 
         String color = health > 70 ? "#4caf50" : (health > 30 ? "#ffeb3b" : "#f44336");
+        baseStateOnHP();
         bar.setStyle("-fx-accent: " + color + ";");
     }
 
@@ -716,6 +737,24 @@ public class GameController {
                 applyZoomInAndFadeOutEffect(gameText);
                 game.endGame();
         });
+    }
+
+    @FXML
+    public void baseStateOnHP() {
+        if (player1.getCurrhealth() > 70f) {
+            player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[0])).toString()));
+        } else if (player1.getCurrhealth() > 35f) {
+            player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[1])).toString()));
+        } else if (player1.getCurrhealth() > 10f) {
+            player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[2])).toString()));
+        }
+        if (player2.getCurrhealth() > 70f) {
+            player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[3])).toString()));
+        } else if (player2.getCurrhealth() > 35f) {
+            player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[4])).toString()));
+        } else if (player2.getCurrhealth() > 10f) {
+            player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[5])).toString()));
+        }
     }
 }
 
