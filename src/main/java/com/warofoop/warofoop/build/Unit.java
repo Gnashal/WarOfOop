@@ -1,11 +1,16 @@
 package com.warofoop.warofoop.build;
 
-public class Unit {
+import com.warofoop.warofoop.build.interfaces.UnitActions;
+import com.warofoop.warofoop.build.interfaces.UnitType;
+
+
+public abstract class Unit implements UnitActions {
     //stats for units
     private float basedamage;
     private float health;
     private float armor;
     private int cost;
+    private UnitType unitType;
 
     public Unit(float armor, float basedamage, int cost, float health) {
         this.armor = armor;
