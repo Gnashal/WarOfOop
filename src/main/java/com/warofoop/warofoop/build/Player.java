@@ -1,7 +1,9 @@
 package com.warofoop.warofoop.build;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Player {
     private String name;
@@ -11,6 +13,7 @@ public class Player {
     private int threshold;
     private int unitcount;
     private List<Unit> units;
+    private Queue<Unit> spawnQueue;
 
     public Player(float maxhealth, int gold, String name, int threshold) {
         this.currhealth = maxhealth;
@@ -19,6 +22,7 @@ public class Player {
         this.name = name;
         this.threshold = threshold;
         this.units = new ArrayList<>();
+        this.spawnQueue = new LinkedList<>();
     }
 
     public String getName() {
@@ -59,6 +63,17 @@ public class Player {
     }
     public List<Unit> getUnits() {
         return units;
+    }
+    public Queue<Unit> getSpawnQueue() {
+        return spawnQueue;
+    }
+
+    public void addToSpawnQueue(Unit unit) {
+        spawnQueue.add(unit);
+    }
+
+    public Unit processNextSpawn() {
+        return spawnQueue.poll();
     }
 
     public void validateHealth() {
