@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -281,32 +281,24 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fitHeight="321.0" fitWidth="486.0" layoutX="1607.0" layoutY="457.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="player2Castle" fitHeight="321.0" fitWidth="474.0" layoutX="1546.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../assets/Player2Castle/Player2FullHP.png" />
          </image>
          <effect>
-            <Shadow />
+            <DropShadow height="29.79" radius="14.395" spread="0.32" width="29.79" />
          </effect>
       </ImageView>
-      <ImageView fitHeight="321.0" fitWidth="474.0" layoutX="-78.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="player1Castle" fitHeight="321.0" fitWidth="474.0" layoutX="-82.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../assets/Player1Castle/Player1FullHp.png" />
          </image>
          <effect>
-            <Shadow />
+            <DropShadow height="20.44" radius="9.61" spread="0.32" width="20.0" />
          </effect>
       </ImageView>
-      <ImageView fx:id="player1Castle" fitHeight="321.0" fitWidth="474.0" layoutX="-64.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/Player1Castle/Player1FullHp.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="player2Castle" fitHeight="321.0" fitWidth="474.0" layoutX="1594.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/Player2Castle/Player2FullHP.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1496.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true" />
    </children>
+   <effect>
+      <DropShadow height="0.0" radius="0.0" width="0.0" />
+   </effect>
 </AnchorPane>

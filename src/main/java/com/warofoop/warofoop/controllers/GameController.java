@@ -741,18 +741,18 @@ public class GameController {
 
     @FXML
     public void baseStateOnHP() {
-        if (player1.getCurrhealth() > 70f) {
+        if (player1.getCurrhealth() > 45f) {
             player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[0])).toString()));
-        } else if (player1.getCurrhealth() > 35f) {
+        } else if (player1.getCurrhealth() > 20f) {
             player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[1])).toString()));
-        } else if (player1.getCurrhealth() > 10f) {
+        } else if (player1.getCurrhealth() <= 0f) {
             player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[2])).toString()));
         }
-        if (player2.getCurrhealth() > 70f) {
+        if (player2.getCurrhealth() > 45f) {
             player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[3])).toString()));
-        } else if (player2.getCurrhealth() > 35f) {
+        } else if (player2.getCurrhealth() > 20f) {
             player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[4])).toString()));
-        } else if (player2.getCurrhealth() > 10f) {
+        } else if (player2.getCurrhealth() <= 0f) {
             player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[5])).toString()));
         }
     }
