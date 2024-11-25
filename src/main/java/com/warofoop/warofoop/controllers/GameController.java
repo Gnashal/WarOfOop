@@ -251,408 +251,133 @@ public class GameController {
     }
 
 //    Cooldown Functions
+public void handleCooldown(
+        Player player,
+        int goldCost,
+        double cooldownDuration,
+        boolean isOnCooldown,
+        Runnable setCooldownFlag,
+        Runnable clearCooldownFlag,
+        StackPane stackPane,
+        Rectangle cooldownOverlay
+) {
+    if (isOnCooldown || player.getGold() < goldCost) {
+        return;
+    }
+
+    player.changeGold(-goldCost);
+    setCooldownFlag.run();
+
+    cooldownOverlay.setFill(Color.BLACK);
+    cooldownOverlay.setOpacity(0.5);
+    cooldownOverlay.setWidth(75.0);
+    cooldownOverlay.setHeight(75.0);
+
+    if (!stackPane.getChildren().contains(cooldownOverlay)) {
+        stackPane.getChildren().add(cooldownOverlay);
+    }
+
+    FadeTransition coolDown = new FadeTransition(Duration.seconds(cooldownDuration), cooldownOverlay);
+    coolDown.setFromValue(0.5);
+    coolDown.setToValue(0);
+    coolDown.setOnFinished(event -> {
+        stackPane.getChildren().remove(cooldownOverlay);
+        clearCooldownFlag.run();
+    });
+
+    coolDown.play();
+}
     public void isArcherOnCD() {
-        if (isArcherCD) {
-            return;
-        }
-
-        if (player1.getGold() > 0) {
-            player1.changeGold(-15);
-
-            isArcherCD = true;
-
-            archerCDOver.setFill(Color.BLACK);
-            archerCDOver.setOpacity(0.5);
-            archerCDOver.setWidth(75.0);
-            archerCDOver.setHeight(75.0);
-
-            if (!archerStack.getChildren().contains(archerCDOver)) {
-                archerStack.getChildren().add(archerCDOver);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(3), archerCDOver);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                archerStack.getChildren().remove(archerCDOver);
-                isArcherCD = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player1, 15, 3.0, isArcherCD,
+                () -> isArcherCD = true,
+                () -> isArcherCD = false,
+                archerStack, archerCDOver);
     }
 
     public void isFootmanOnCD() {
-        if (isFootmanCD) {
-            return;
-        }
-
-        if (player1.getGold() > 0) {
-            player1.changeGold(-10);
-
-            isFootmanCD = true;
-
-            footmanCDOver.setFill(Color.BLACK);
-            footmanCDOver.setOpacity(0.5);
-            footmanCDOver.setWidth(75.0);
-            footmanCDOver.setHeight(75.0);
-
-            if (!footmanStack.getChildren().contains(footmanCDOver)) {
-                footmanStack.getChildren().add(footmanCDOver);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(5), footmanCDOver);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                footmanStack.getChildren().remove(footmanCDOver);
-                isFootmanCD = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player1, 10, 5.0, isFootmanCD,
+                () -> isFootmanCD = true,
+                () -> isFootmanCD = false,
+                footmanStack, footmanCDOver);
     }
 
     public void isKnightOnCD() {
-        if (isKnightCD) {
-            return;
-        }
-
-        if (player1.getGold() > 0) {
-            player1.changeGold(-20);
-
-            isKnightCD = true;
-
-            knightCDOver.setFill(Color.BLACK);
-            knightCDOver.setOpacity(0.5);
-            knightCDOver.setWidth(75.0);
-            knightCDOver.setHeight(75.0);
-
-            if (!knightStack.getChildren().contains(knightCDOver)) {
-                knightStack.getChildren().add(knightCDOver);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(10), knightCDOver);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                knightStack.getChildren().remove(knightCDOver);
-                isKnightCD = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player1, 20, 10.0, isKnightCD,
+                () -> isKnightCD = true,
+                () -> isKnightCD = false,
+                knightStack, knightCDOver);
     }
 
     public void isTrollOnCD() {
-        if (isTrollCD) {
-            return;
-        }
-
-        if (player1.getGold() > 0) {
-            player1.changeGold(-15);
-
-            isTrollCD = true;
-
-            trollCDOver.setFill(Color.BLACK);
-            trollCDOver.setOpacity(0.5);
-            trollCDOver.setWidth(75.0);
-            trollCDOver.setHeight(75.0);
-
-            if (!trollStack.getChildren().contains(trollCDOver)) {
-                trollStack.getChildren().add(trollCDOver);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(3), trollCDOver);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                trollStack.getChildren().remove(trollCDOver);
-                isTrollCD = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player1, 15, 3.0, isTrollCD,
+                () -> isTrollCD = true,
+                () -> isTrollCD = false,
+                trollStack, trollCDOver);
     }
 
     public void isOrcOnCD() {
-        if (isOrcCD) {
-            return;
-        }
-
-        if (player1.getGold() > 0) {
-            player1.changeGold(-10);
-
-            isOrcCD = true;
-
-            orcCDOver.setFill(Color.BLACK);
-            orcCDOver.setOpacity(0.5);
-            orcCDOver.setWidth(75.0);
-            orcCDOver.setHeight(75.0);
-
-            if (!orcStack.getChildren().contains(orcCDOver)) {
-                orcStack.getChildren().add(orcCDOver);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(5), orcCDOver);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                orcStack.getChildren().remove(orcCDOver);
-                isOrcCD = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player1, 10, 5.0, isOrcCD,
+                () -> isOrcCD = true,
+                () -> isOrcCD = false,
+                orcStack, orcCDOver);
     }
 
     public void isOgreOnCD() {
-        if (isOgreCD) {
-            return;
-        }
-
-        if (player1.getGold() > 0) {
-            player1.changeGold(-20);
-
-            isOgreCD = true;
-
-            ogreCDOver.setFill(Color.BLACK);
-            ogreCDOver.setOpacity(0.5);
-            ogreCDOver.setWidth(75.0);
-            ogreCDOver.setHeight(75.0);
-
-            if (!ogreStack.getChildren().contains(ogreCDOver)) {
-                ogreStack.getChildren().add(ogreCDOver);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(10), ogreCDOver);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                ogreStack.getChildren().remove(ogreCDOver);
-                isOgreCD = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player1, 20, 10.0, isOgreCD,
+                () -> isOgreCD = true,
+                () -> isOgreCD = false,
+                ogreStack, ogreCDOver);
     }
 
     public void isArcherOnCD2() {
-        if (isArcherCD2) {
-            return;
-        }
-
-        if (player2.getGold() > 0) {
-            player2.changeGold(-15);
-
-            isArcherCD2 = true;
-
-            archerCDOver2.setFill(Color.BLACK);
-            archerCDOver2.setOpacity(0.5);
-            archerCDOver2.setWidth(75.0);
-            archerCDOver2.setHeight(75.0);
-
-            if (!archerStack2.getChildren().contains(archerCDOver2)) {
-                archerStack2.getChildren().add(archerCDOver2);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(3), archerCDOver2);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                archerStack2.getChildren().remove(archerCDOver2);
-                isArcherCD2 = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player2, 15, 3.0, isArcherCD2,
+                () -> isArcherCD2 = true,
+                () -> isArcherCD2 = false,
+                archerStack2, archerCDOver2);
     }
 
     public void isFootmanOnCD2() {
-        if (isFootmanCD2) {
-            return;
-        }
-
-        if (player2.getGold() > 0) {
-            player2.changeGold(-10);
-
-            isFootmanCD2 = true;
-
-            footmanCDOver2.setFill(Color.BLACK);
-            footmanCDOver2.setOpacity(0.5);
-            footmanCDOver2.setWidth(75.0);
-            footmanCDOver2.setHeight(75.0);
-
-            if (!footmanStack2.getChildren().contains(footmanCDOver2)) {
-                footmanStack2.getChildren().add(footmanCDOver2);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(5), footmanCDOver2);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                footmanStack2.getChildren().remove(footmanCDOver2);
-                isFootmanCD2 = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player2, 10, 5.0, isFootmanCD2,
+                () -> isFootmanCD2 = true,
+                () -> isFootmanCD2 = false,
+                footmanStack2, footmanCDOver2);
     }
 
     public void isKnightOnCD2() {
-        if (isKnightCD2) {
-            return;
-        }
-
-        if (player2.getGold() > 0) {
-            player2.changeGold(-20);
-
-            isKnightCD2 = true;
-            knightCDOver2.setFill(Color.BLACK);
-            knightCDOver2.setOpacity(0.5);
-            knightCDOver2.setWidth(75.0);
-            knightCDOver2.setHeight(75.0);
-
-            if (!knightStack2.getChildren().contains(knightCDOver2)) {
-                knightStack2.getChildren().add(knightCDOver2);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(10), knightCDOver2);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                knightStack2.getChildren().remove(knightCDOver2);
-                isKnightCD2 = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player2, 20, 10.0, isKnightCD2,
+                () -> isKnightCD2 = true,
+                () -> isKnightCD2 = false,
+                knightStack2, knightCDOver2);
     }
 
     public void isTrollOnCD2() {
-        if (isTrollCD2) {
-            return;
-        }
-
-        if (player2.getGold() > 0) {
-            player2.changeGold(-15);
-
-            isTrollCD2 = true;
-
-            trollCDOver2.setFill(Color.BLACK);
-            trollCDOver2.setOpacity(0.5);
-            trollCDOver2.setWidth(75.0);
-            trollCDOver2.setHeight(75.0);
-
-            if (!trollStack2.getChildren().contains(trollCDOver2)) {
-                trollStack2.getChildren().add(trollCDOver2);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(3), trollCDOver2);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                trollStack2.getChildren().remove(trollCDOver2);
-                isTrollCD2 = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player2, 15, 3.0, isTrollCD2,
+                () -> isTrollCD2 = true,
+                () -> isTrollCD2 = false,
+                trollStack2, trollCDOver2);
     }
 
     public void isOrcOnCD2() {
-        if (isOrcCD2) {
-            return;
-        }
-
-        if (player2.getGold() > 0) {
-            player2.changeGold(-10);
-
-            isOrcCD2 = true;
-
-            orcCDOver2.setFill(Color.BLACK);
-            orcCDOver2.setOpacity(0.5);
-            orcCDOver2.setWidth(75.0);
-            orcCDOver2.setHeight(75.0);
-
-            if (!orcStack2.getChildren().contains(orcCDOver2)) {
-                orcStack2.getChildren().add(orcCDOver2);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(5), orcCDOver2);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                orcStack2.getChildren().remove(orcCDOver2);
-                isOrcCD2 = false;
-            });
-
-            coolDown.play();
-        }
-
-
+        handleCooldown(player2, 10, 5.0, isOrcCD2,
+                () -> isOrcCD2 = true,
+                () -> isOrcCD2 = false,
+                orcStack2, orcCDOver2);
     }
 
     public void isOgreOnCD2() {
-        if (isOgreCD2) {
-            return;
-        }
-
-        if (player2.getGold() > 0) {
-            player2.changeGold(-20);
-
-            isOgreCD2 = true;
-
-            ogreCDOver2.setFill(Color.BLACK);
-            ogreCDOver2.setOpacity(0.5);
-            ogreCDOver2.setWidth(75.0);
-            ogreCDOver2.setHeight(75.0);
-
-            if (!ogreStack2.getChildren().contains(ogreCDOver2)) {
-                ogreStack2.getChildren().add(ogreCDOver2);
-            }
-
-            FadeTransition coolDown = new FadeTransition(Duration.seconds(10), ogreCDOver2);
-            coolDown.setFromValue(0.5);
-            coolDown.setToValue(0);
-            coolDown.setOnFinished(event -> {
-                ogreStack2.getChildren().remove(ogreCDOver2);
-                isOgreCD2 = false;
-            });
-
-            coolDown.play();
-        }
-
-
-
+        handleCooldown(player2, 20, 10.0, isOgreCD2,
+                () -> isOgreCD2 = true,
+                () -> isOgreCD2 = false,
+                ogreStack2, ogreCDOver2);
     }
+
 
 //    ============================================================
 
     @FXML
     protected void hotKey(KeyEvent event) {
         switch (event.getCode()) {
-            case Q -> {
+            case E -> {
 
                 isFootmanOnCD();
             }
@@ -660,11 +385,11 @@ public class GameController {
 
                 isKnightOnCD();
             }
-            case E -> {
+            case Q -> {
 
                 isArcherOnCD();
             }
-            case A -> {
+            case D -> {
 
                 isOrcOnCD();
             }
@@ -672,11 +397,11 @@ public class GameController {
 
                 isOgreOnCD();
             }
-            case D -> {
+            case A -> {
 
                 isTrollOnCD();
             }
-            case I -> {
+            case P -> {
 
                 isFootmanOnCD2();
             }
@@ -684,11 +409,11 @@ public class GameController {
 
                 isKnightOnCD2();
             }
-            case P -> {
+            case I -> {
 
                 isArcherOnCD2();
             }
-            case J -> {
+            case L -> {
 
                 isOrcOnCD2();
             }
@@ -696,7 +421,7 @@ public class GameController {
 
                 isOgreOnCD2();
             }
-            case L -> {
+            case J -> {
 
                 isTrollOnCD2();
             }
