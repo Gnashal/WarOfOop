@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,9 +13,10 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePane" onKeyPressed="#hotKey" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../css/gameStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.GameController">
+<AnchorPane fx:id="gamePane" minWidth="-Infinity" onKeyPressed="#hotKey" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../css/gameStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.GameController">
    <children>
-
+      <!--WINNER TEXT-->
+      <Label fx:id="gameText" alignment="CENTER" layoutX="900.0" layoutY="500.0" style="-fx-font-size: 64px; -fx-text-fill: white;" />
       <!-- Time Label -->
       <Label fx:id="timeLabel" layoutX="932.0" layoutY="74.0" prefHeight="45.0" prefWidth="53.0" styleClass="timeDisplay" text="00">
          <font>
@@ -82,7 +84,6 @@
             </children>
          </HBox>
       </VBox>
-
       <!-- Player 2 Details -->
       <VBox alignment="CENTER" layoutX="1627.0" layoutY="130.0" prefHeight="200.0" prefWidth="252.0" spacing="10.0">
          <HBox prefWidth="250.0" spacing="10.0">
@@ -136,9 +137,7 @@
             </children>
          </HBox>
       </VBox>
-      <AnchorPane layoutX="196.0" layoutY="483.0" prefHeight="200.0" prefWidth="192.0" styleClass="baseTower" />
-      <AnchorPane layoutX="1593.0" layoutY="452.0" prefHeight="200.0" prefWidth="202.0" styleClass="baseTower" />
-      <VBox layoutX="254.0" layoutY="733.0" prefHeight="100.0" prefWidth="100.0">
+      <VBox layoutX="180.0" layoutY="814.0" prefHeight="100.0" prefWidth="100.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="100.0">
                <children>
@@ -210,7 +209,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox layoutX="1448.0" layoutY="691.0" prefHeight="100.0" prefWidth="100.0">
+      <VBox layoutX="1513.0" layoutY="814.0" prefHeight="100.0" prefWidth="100.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="100.0">
                <children>
@@ -282,5 +281,32 @@
             </HBox>
          </children>
       </VBox>
+      <ImageView fitHeight="321.0" fitWidth="486.0" layoutX="1607.0" layoutY="457.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/Player2Castle/Player2FullHP.png" />
+         </image>
+         <effect>
+            <Shadow />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="321.0" fitWidth="474.0" layoutX="-78.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/Player1Castle/Player1FullHp.png" />
+         </image>
+         <effect>
+            <Shadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="player1Castle" fitHeight="321.0" fitWidth="474.0" layoutX="-64.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/Player1Castle/Player1FullHp.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="player2Castle" fitHeight="321.0" fitWidth="474.0" layoutX="1594.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/Player2Castle/Player2FullHP.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1496.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

@@ -4,6 +4,7 @@ import com.warofoop.warofoop.SceneManager;
 import com.warofoop.warofoop.build.Game;
 import com.warofoop.warofoop.build.Player;
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,7 +14,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -24,18 +27,37 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class GameController {
+    private final String[] playerBaseImagePaths = {
+            "/assets/Player1Castle/Player1FullHp.png",
+            "/assets/Player1Castle/Player1HalfHp.png",
+            "/assets/Player1Castle/Player1NoHp.png",
+            "/assets/Player2Castle/Player2FullHP.png",
+            "/assets/Player2Castle/Player2MidHP.png",
+            "/assets/Player2Castle/Player2NoHP.png"
+    };
+
+    @FXML
+    private ListView<String> imageListView;
+    String selectedImage;
+
+    @FXML
+    private ImageView player1Castle;
+
+    @FXML
+    private ImageView player2Castle;
 
     private SceneManager sceneManager;
     private Player player1;
     private Player player2;
     private Game game;
 
-    private IntegerProperty deployTime = new SimpleIntegerProperty(20);
-    private IntegerProperty startTime = new SimpleIntegerProperty(30);
-    private IntegerProperty intervalTime = new SimpleIntegerProperty(3);
-    private int roundCount = 1;
+    private final IntegerProperty deployTime = new SimpleIntegerProperty(20);
+    private final IntegerProperty startTime = new SimpleIntegerProperty(30);
+    private final IntegerProperty intervalTime = new SimpleIntegerProperty(3);
+    private int roundCount;
 
     public boolean isArcherCD = false;
     public boolean isFootmanCD = false;
@@ -52,6 +74,9 @@ public class GameController {
     public boolean isTrollCD2 = false;
     public boolean isOrcCD2 = false;
     public boolean isOgreCD2 = false;
+
+
+    private boolean isPaused = false;
 
     @FXML
     private AnchorPane gamePane;
@@ -82,46 +107,60 @@ public class GameController {
     private Rectangle archerCDOver2, footmanCDOver2, knightCDOver2, trollCDOver2, orcCDOver2, ogreCDOver2;
 //  ==================================================================================================
 
+    public Timeline gameLoop;
+    //PLEASE USE THIS FOR THE GAMETIME LINE AS A WHOLE
+    //USED FOR PAUSING A GAME && RESUMING A GAME
+
+    @FXML
+    private Region overlay;
+
+    @FXML
+    private Label gameText;
+
+    @FXML
+    private GaussianBlur blurEffect = new GaussianBlur();
+
+
+
     @FXML
     public void initialize() {
-        roundLabel.setText("Round: " + roundCount);
-
-        // Timeline for game logic updates
-        Timeline timeline = new Timeline(
+        gameLoop = new Timeline(
                 new KeyFrame(Duration.seconds(1), this::updateGameLogic)
         );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+        gameLoop.play();
     }
 
     private void updateGameLogic(ActionEvent event) {
-        if (game.isGameOver()) {
-            return;
-        }
+        if (!game.isGameOver()) {
 
-        if (deployTime.get() > 0) {
-            deployTime.set(deployTime.get() - 1);
-        } else if (intervalTime.get() > 0) {
-            intervalTime.set(intervalTime.get() - 1);
-        } else if (startTime.get() > 0) {
-            startTime.set(startTime.get() - 1);
+            if (deployTime.get() > 0) {
+                deployTime.set(deployTime.get() - 1);
+            } else if (intervalTime.get() > 0) {
+                intervalTime.set(intervalTime.get() - 1);
+            } else if (startTime.get() > 0) {
+                startTime.set(startTime.get() - 1);
+            } else {
+                nextRound();
+            }
+            updateUI();
         } else {
-            nextRound();
+            handleGameOver();
         }
-
-        updateUI();
     }
 
     private void nextRound() {
         roundCount++;
-        deployTime.set(20); // Selection Phase
-        intervalTime.set(3); // Interval
-        startTime.set(30); // Attacking Phase / Spawning Phase
+        deployTime.set(game.getDeploy_time()); // Selection Phase
+        intervalTime.set(game.getInterval_time()); // Interval
+        startTime.set(game.getStart_time()); // Attacking Phase / Spawning Phase
         roundLabel.setText("Round: " + roundCount);
         System.out.println("Round " + roundCount + " begins!");
     }
 
     private void updateUI() {
+        gameText.setText("Round: " + roundCount);
+        applyZoomInAndFadeOutEffect(gameText);
         updateTimeLabel();
         updateHealthBars();
         updateEconomyLabels();
@@ -146,6 +185,7 @@ public class GameController {
         bar.setProgress(health / player1.getMaxhealth());
 
         String color = health > 70 ? "#4caf50" : (health > 30 ? "#ffeb3b" : "#f44336");
+        baseStateOnHP();
         bar.setStyle("-fx-accent: " + color + ";");
     }
 
@@ -173,6 +213,7 @@ public class GameController {
         roundCount = 1;
         playerName1.setText(player1.getName());
         playerName2.setText(player2.getName());
+        roundCount = game.getRoundCount();
         updateHealthBars();
         updateEconomyLabels();
         setGameBackground();
@@ -200,8 +241,10 @@ public class GameController {
     @FXML
     public void returnToPrevScene() throws IOException {
         if (sceneManager != null) {
-            game.endGame();
-            sceneManager.switchToLobby();
+            if (!game.isGameOver()) {
+                game.endGame();
+            }
+            sceneManager.reloadLobby();
         } else {
             System.out.println("Scene Manager not set!");
         }
@@ -666,19 +709,52 @@ public class GameController {
         player2.validateHealth();
         updateUI();
 
-        if (player1.isDefeated() || player2.isDefeated()) {
-            handleGameOver();
-        }
+    }
+
+    public void applyZoomInAndFadeOutEffect(Label gameLabel) {
+        // Scale transition (zoom-in effect for the label)
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), gameLabel);
+        scaleTransition.setToX(1.2);  // Zoom-in on X axis (horizontal scaling)
+        scaleTransition.setToY(1.2);  // Zoom-in on Y axis (vertical scaling)
+
+        // Fade transition (fade-out effect)
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2), gameLabel);
+        fadeTransition.setToValue(0);  // Fade out to 0 opacity
+
+        // Play the transitions together
+        scaleTransition.play();
+        fadeTransition.play();
     }
 
     private void handleGameOver() {
         Platform.runLater(() -> {
-            if (player1.isDefeated()) {
-                System.out.println(player2.getName() + " won!");
-            } else if (player2.isDefeated()) {
-                System.out.println(player1.getName() + " won!");
-            }
+            String winner = (player1.isDefeated()) ? player2.getName(): player1.getName();
+                System.out.println(winner + " won!");
+                gameLoop.stop();
+                gamePane.setStyle("-fx-background-color: gold;");
+                gameText.setOpacity(1);
+                gameText.setText(winner + " Won!");
+                applyZoomInAndFadeOutEffect(gameText);
+                game.endGame();
         });
+    }
+
+    @FXML
+    public void baseStateOnHP() {
+        if (player1.getCurrhealth() > 70f) {
+            player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[0])).toString()));
+        } else if (player1.getCurrhealth() > 35f) {
+            player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[1])).toString()));
+        } else if (player1.getCurrhealth() > 10f) {
+            player1Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[2])).toString()));
+        }
+        if (player2.getCurrhealth() > 70f) {
+            player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[3])).toString()));
+        } else if (player2.getCurrhealth() > 35f) {
+            player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[4])).toString()));
+        } else if (player2.getCurrhealth() > 10f) {
+            player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[5])).toString()));
+        }
     }
 }
 
