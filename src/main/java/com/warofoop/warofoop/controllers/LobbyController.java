@@ -90,8 +90,8 @@ public class LobbyController {
             String name1 = playerName1.getText();
             String name2 = playerName2.getText();
             String MapName = imageListView.getSelectionModel().getSelectedItem();
-            player1 = new Player(100f, 500, name1, 10);
-            player2 = new Player(100f, 500, name2, 10);
+            player1 = new Player(100f, 500, name1, 100);
+            player2 = new Player(100f, 500, name2, 100);
             game = new Game(player1, player2, MapName);
             if(startGameReady){
                 goToGame();

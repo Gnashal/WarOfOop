@@ -14,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
@@ -40,14 +39,20 @@ public class GameController {
     };
 
     @FXML
-    private ListView<String> imageListView;
-    String selectedImage;
-
-    @FXML
     private ImageView player1Castle;
 
     @FXML
     private ImageView player2Castle;
+
+    @FXML
+    private Label currCap1;
+    @FXML
+    private Label currCap2;
+
+    @FXML
+    private Label player1UnitCap;
+    @FXML
+    private Label player2UnitCap;
 
     private SceneManager sceneManager;
     private Player player1;
@@ -74,7 +79,6 @@ public class GameController {
     public boolean isTrollCD2 = false;
     public boolean isOrcCD2 = false;
     public boolean isOgreCD2 = false;
-
 
     private boolean isPaused = false;
 
@@ -164,6 +168,22 @@ public class GameController {
         updateTimeLabel();
         updateHealthBars();
         updateEconomyLabels();
+        updateUnitCap();
+    }
+
+//    wala pa na human
+    private void updateUnitCap() {
+        if(player1.getCurrCap() < player1.getThreshold()){
+            currCap1.setText(String.valueOf(player1.getCurrCap()));
+        }
+        if(player2.getCurrCap() < player2.getThreshold()){
+            currCap2.setText(String.valueOf(player2.getCurrCap()));
+        }
+    }
+
+    private void setMaxCap() {
+        player1UnitCap.setText(String.valueOf(player1.getThreshold()));
+        player2UnitCap.setText(String.valueOf(player1.getThreshold()));
     }
 
     private void updateTimeLabel() {
@@ -216,6 +236,7 @@ public class GameController {
         roundCount = game.getRoundCount();
         updateHealthBars();
         updateEconomyLabels();
+        setMaxCap();
         setGameBackground();
     }
 
@@ -259,13 +280,15 @@ public void handleCooldown(
         Runnable setCooldownFlag,
         Runnable clearCooldownFlag,
         StackPane stackPane,
-        Rectangle cooldownOverlay
+        Rectangle cooldownOverlay,
+        int unitSize
 ) {
-    if (isOnCooldown || player.getGold() < goldCost) {
+    if (isOnCooldown || player.getGold() < goldCost || player.getCurrCap() > player.getThreshold()) {
         return;
     }
 
     player.changeGold(-goldCost);
+    player.changeCurrCap(unitSize);
     setCooldownFlag.run();
 
     cooldownOverlay.setFill(Color.BLACK);
@@ -291,84 +314,84 @@ public void handleCooldown(
         handleCooldown(player1, 15, 3.0, isArcherCD,
                 () -> isArcherCD = true,
                 () -> isArcherCD = false,
-                archerStack, archerCDOver);
+                archerStack, archerCDOver, 5);
     }
 
     public void isFootmanOnCD() {
         handleCooldown(player1, 10, 5.0, isFootmanCD,
                 () -> isFootmanCD = true,
                 () -> isFootmanCD = false,
-                footmanStack, footmanCDOver);
+                footmanStack, footmanCDOver, 8);
     }
 
     public void isKnightOnCD() {
         handleCooldown(player1, 20, 10.0, isKnightCD,
                 () -> isKnightCD = true,
                 () -> isKnightCD = false,
-                knightStack, knightCDOver);
+                knightStack, knightCDOver, 12);
     }
 
     public void isTrollOnCD() {
         handleCooldown(player1, 15, 3.0, isTrollCD,
                 () -> isTrollCD = true,
                 () -> isTrollCD = false,
-                trollStack, trollCDOver);
+                trollStack, trollCDOver, 4);
     }
 
     public void isOrcOnCD() {
         handleCooldown(player1, 10, 5.0, isOrcCD,
                 () -> isOrcCD = true,
                 () -> isOrcCD = false,
-                orcStack, orcCDOver);
+                orcStack, orcCDOver, 7);
     }
 
     public void isOgreOnCD() {
         handleCooldown(player1, 20, 10.0, isOgreCD,
                 () -> isOgreCD = true,
                 () -> isOgreCD = false,
-                ogreStack, ogreCDOver);
+                ogreStack, ogreCDOver, 12);
     }
 
     public void isArcherOnCD2() {
         handleCooldown(player2, 15, 3.0, isArcherCD2,
                 () -> isArcherCD2 = true,
                 () -> isArcherCD2 = false,
-                archerStack2, archerCDOver2);
+                archerStack2, archerCDOver2, 5);
     }
 
     public void isFootmanOnCD2() {
         handleCooldown(player2, 10, 5.0, isFootmanCD2,
                 () -> isFootmanCD2 = true,
                 () -> isFootmanCD2 = false,
-                footmanStack2, footmanCDOver2);
+                footmanStack2, footmanCDOver2, 8);
     }
 
     public void isKnightOnCD2() {
         handleCooldown(player2, 20, 10.0, isKnightCD2,
                 () -> isKnightCD2 = true,
                 () -> isKnightCD2 = false,
-                knightStack2, knightCDOver2);
+                knightStack2, knightCDOver2, 12);
     }
 
     public void isTrollOnCD2() {
         handleCooldown(player2, 15, 3.0, isTrollCD2,
                 () -> isTrollCD2 = true,
                 () -> isTrollCD2 = false,
-                trollStack2, trollCDOver2);
+                trollStack2, trollCDOver2, 4);
     }
 
     public void isOrcOnCD2() {
         handleCooldown(player2, 10, 5.0, isOrcCD2,
                 () -> isOrcCD2 = true,
                 () -> isOrcCD2 = false,
-                orcStack2, orcCDOver2);
+                orcStack2, orcCDOver2, 7);
     }
 
     public void isOgreOnCD2() {
         handleCooldown(player2, 20, 10.0, isOgreCD2,
                 () -> isOgreCD2 = true,
                 () -> isOgreCD2 = false,
-                ogreStack2, ogreCDOver2);
+                ogreStack2, ogreCDOver2, 12);
     }
 
 

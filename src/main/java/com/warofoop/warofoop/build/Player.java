@@ -12,6 +12,7 @@ public class Player {
     private int gold;
     private int threshold;
     private int unitcount;
+    private int currCap;
     private List<Unit> units;
     private Queue<Unit> spawnQueue;
 
@@ -67,6 +68,8 @@ public class Player {
     public Queue<Unit> getSpawnQueue() {
         return spawnQueue;
     }
+    public int getCurrCap() { return currCap; }
+    public void changeCurrCap(int addCap){ this.currCap += addCap; }
 
     public void addToSpawnQueue(Unit unit) {
         spawnQueue.add(unit);

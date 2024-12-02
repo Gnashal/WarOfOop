@@ -34,36 +34,36 @@
       <!-- Player 1 Details -->
       <VBox alignment="CENTER" layoutX="43.0" layoutY="130.0" prefHeight="200.0" prefWidth="246.0" spacing="10.0">
          <HBox prefWidth="250.0" spacing="10.0">
-            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="109.0" text="Name">
+            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="109.0" text="Name" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="playerName1" prefHeight="35.0" prefWidth="148.0" text="Player 1 Name">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-         </HBox>
-         <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Gold">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="playerLabelEcon1" prefHeight="35.0" prefWidth="129.0" text="0">
+            <Label fx:id="playerName1" prefHeight="35.0" prefWidth="148.0" text="Player 1 Name" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </HBox>
          <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Unit Cap">
+            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Gold" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="playerLabelEcon11" prefHeight="35.0" prefWidth="130.0" text="0">
+            <Label fx:id="playerLabelEcon1" prefHeight="35.0" prefWidth="129.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Unit Cap" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="player1UnitCap" prefHeight="35.0" prefWidth="130.0" text="0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -71,12 +71,12 @@
          </HBox>
          <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>
-               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Current">
+               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="98.0" text="Current" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="24.0" />
                   </font>
                </Label>
-               <Label fx:id="playerLabelEcon111" prefHeight="35.0" prefWidth="130.0" text="0">
+               <Label fx:id="currCap1" prefHeight="35.0" prefWidth="130.0" text="0" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="24.0" />
                   </font>
@@ -87,36 +87,36 @@
       <!-- Player 2 Details -->
       <VBox alignment="CENTER" layoutX="1627.0" layoutY="130.0" prefHeight="200.0" prefWidth="252.0" spacing="10.0">
          <HBox prefWidth="250.0" spacing="10.0">
-            <Label fx:id="playerName2" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="Player 2 Name">
+            <Label fx:id="playerName2" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="Player 2 Name" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label text="Name">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-         </HBox>
-         <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <Label fx:id="playerLabelEcon2" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="137.0" text="0">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label text="Gold">
+            <Label text="Name" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </HBox>
          <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <Label fx:id="playerLabelEcon21" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="0">
+            <Label fx:id="playerLabelEcon2" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="137.0" text="0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label text="Unit Cap">
+            <Label text="Gold" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label fx:id="player2UnitCap" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label text="Unit Cap" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -124,12 +124,12 @@
          </HBox>
          <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="138.0" spacing="10.0">
             <children>
-               <Label fx:id="playerLabelEcon211" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="0">
+               <Label fx:id="currCap2" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="139.0" text="0" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="24.0" />
                   </font>
                </Label>
-               <Label text="Current">
+               <Label text="Current" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="24.0" />
                   </font>

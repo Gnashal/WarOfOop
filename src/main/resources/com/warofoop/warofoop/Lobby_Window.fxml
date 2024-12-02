@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="lobbyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  styleClass="root" stylesheets="@../../../css/lobbyStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.LobbyController">
+<AnchorPane fx:id="lobbyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@../../../css/lobbyStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.warofoop.warofoop.controllers.LobbyController">
    <children>
       <AnchorPane layoutX="147.0" layoutY="85.0" opacity="0.61" prefHeight="856.0" prefWidth="1633.0" style="-fx-background-color: black; -fx-background-radius: 40; -fx-border-radius: 40;" styleClass="BG_User1">
          <effect>
@@ -73,7 +73,7 @@
                </font>
             </Label>
 
-            <ListView fx:id="imageListView" layoutX="423.0" layoutY="52.0" prefHeight="241.0" prefWidth="284.0" style="-fx-border-color: white;" />
+            <ListView fx:id="imageListView" layoutX="423.0" layoutY="52.0" prefHeight="241.0" prefWidth="284.0" style="-fx-text-fill: white; -fx-background-color: black;" />
             <Button layoutX="613.0" layoutY="247.0" onAction="#handleSelectImage" style="-fx-background-color: blue; -fx-background-radius: 5;" text="Select Map" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
