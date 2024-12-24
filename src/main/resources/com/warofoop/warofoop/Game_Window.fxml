@@ -297,6 +297,66 @@
             <DropShadow height="20.44" radius="9.61" spread="0.32" width="20.0" />
          </effect>
       </ImageView>
+      <Label fx:id="playerName11" layoutX="359.0" layoutY="779.0" prefHeight="35.0" prefWidth="17.0" text="E" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName111" layoutX="280.0" layoutY="779.0" prefHeight="35.0" prefWidth="26.0" text="W" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName1111" layoutX="207.0" layoutY="779.0" prefHeight="35.0" prefWidth="26.0" text="Q" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName11111" layoutX="207.0" layoutY="964.0" prefHeight="35.0" prefWidth="26.0" text="A" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName111111" layoutX="280.0" layoutY="964.0" prefHeight="35.0" prefWidth="26.0" text="S" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName1111111" layoutX="355.0" layoutY="964.0" prefHeight="35.0" prefWidth="26.0" text="D" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName112" layoutX="1694.0" layoutY="779.0" prefHeight="35.0" prefWidth="17.0" text="P" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName1112" layoutX="1615.0" layoutY="779.0" prefHeight="35.0" prefWidth="26.0" text="O" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName11112" layoutX="1542.0" layoutY="779.0" prefHeight="35.0" prefWidth="26.0" text="I" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName111112" layoutX="1542.0" layoutY="964.0" prefHeight="35.0" prefWidth="26.0" text="J" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName1111112" layoutX="1615.0" layoutY="964.0" prefHeight="35.0" prefWidth="26.0" text="K" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerName11111111" layoutX="1690.0" layoutY="964.0" prefHeight="35.0" prefWidth="26.0" text="L" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
    <effect>
       <DropShadow height="0.0" radius="0.0" width="0.0" />

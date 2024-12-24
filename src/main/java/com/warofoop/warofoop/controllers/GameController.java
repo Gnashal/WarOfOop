@@ -1,8 +1,7 @@
 package com.warofoop.warofoop.controllers;
 
 import com.warofoop.warofoop.SceneManager;
-import com.warofoop.warofoop.build.Game;
-import com.warofoop.warofoop.build.Player;
+import com.warofoop.warofoop.build.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
@@ -26,7 +25,10 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class GameController {
     private final String[] playerBaseImagePaths = {
@@ -37,6 +39,17 @@ public class GameController {
             "/assets/Player2Castle/Player2MidHP.png",
             "/assets/Player2Castle/Player2NoHP.png"
     };
+
+    private List<Unit> player1Units = new ArrayList<>();
+    private List<Unit> player2Units = new ArrayList<>();
+
+    private Unit unit;
+    private Archer archer;
+    private Footman footman;
+    private Goblin goblin;
+    private Knight knight;
+    private Ogre ogre;
+    private Troll troll;
 
     @FXML
     private ImageView player1Castle;
@@ -91,7 +104,7 @@ public class GameController {
     @FXML
     private ProgressBar playerHealthDisplay1, playerHealthDisplay2;
 
-//  This is for the unit control UI panel
+    //  This is for the unit control UI panel
     @FXML
     ImageView archerIcon, footmanIcon, knightIcon, trollIcon, orcIcon, ogreIcon;
 
@@ -123,7 +136,6 @@ public class GameController {
 
     @FXML
     private GaussianBlur blurEffect = new GaussianBlur();
-
 
 
     @FXML
@@ -171,12 +183,12 @@ public class GameController {
         updateUnitCap();
     }
 
-//    wala pa na human
+    //    wala pa na human
     private void updateUnitCap() {
-        if(player1.getCurrCap() < player1.getThreshold()){
+        if (player1.getCurrCap() < player1.getThreshold()) {
             currCap1.setText(String.valueOf(player1.getCurrCap()));
         }
-        if(player2.getCurrCap() < player2.getThreshold()){
+        if (player2.getCurrCap() < player2.getThreshold()) {
             currCap2.setText(String.valueOf(player2.getCurrCap()));
         }
     }
@@ -271,127 +283,140 @@ public class GameController {
         }
     }
 
-//    Cooldown Functions
-public void handleCooldown(
-        Player player,
-        int goldCost,
-        double cooldownDuration,
-        boolean isOnCooldown,
-        Runnable setCooldownFlag,
-        Runnable clearCooldownFlag,
-        StackPane stackPane,
-        Rectangle cooldownOverlay,
-        int unitSize
-) {
-    if (isOnCooldown || player.getGold() < goldCost || player.getCurrCap() > player.getThreshold()) {
-        return;
+    //    Cooldown Functions
+    public void handleCooldown(
+            Player player,
+            String unitName,
+            int goldCost,
+            double cooldownDuration,
+            boolean isOnCooldown,
+            Runnable setCooldownFlag,
+            Runnable clearCooldownFlag,
+            StackPane stackPane,
+            Rectangle cooldownOverlay,
+            int unitSize
+    ) {
+        if (isOnCooldown || player.getGold() < goldCost || player.getCurrCap() > player.getThreshold()) {
+            return;
+        }
+
+        Random random = new Random();
+        if(player == player1) {
+            int randomXPlayer1 = 350 + random.nextInt(101);
+            int randomYPlayer1 = 400 + random.nextInt(401);
+            spawnUnit(unitName, player1, randomXPlayer1, randomYPlayer1);
+        }else{
+            int randomXPlayer2 = 1530 - random.nextInt(101);
+            int randomYPlayer2 = 400 + random.nextInt(401);
+            spawnUnit(unitName, player2, randomXPlayer2, randomYPlayer2);
+        }
+
+        player.changeGold(-goldCost);
+        player.changeCurrCap(unitSize);
+        setCooldownFlag.run();
+
+        cooldownOverlay.setFill(Color.BLACK);
+        cooldownOverlay.setOpacity(0.5);
+        cooldownOverlay.setWidth(75.0);
+        cooldownOverlay.setHeight(75.0);
+
+        if (!stackPane.getChildren().contains(cooldownOverlay)) {
+            stackPane.getChildren().add(cooldownOverlay);
+        }
+
+        FadeTransition coolDown = new FadeTransition(Duration.seconds(cooldownDuration), cooldownOverlay);
+        coolDown.setFromValue(0.5);
+        coolDown.setToValue(0);
+        coolDown.setOnFinished(event -> {
+            stackPane.getChildren().remove(cooldownOverlay);
+            clearCooldownFlag.run();
+        });
+
+        coolDown.play();
     }
 
-    player.changeGold(-goldCost);
-    player.changeCurrCap(unitSize);
-    setCooldownFlag.run();
-
-    cooldownOverlay.setFill(Color.BLACK);
-    cooldownOverlay.setOpacity(0.5);
-    cooldownOverlay.setWidth(75.0);
-    cooldownOverlay.setHeight(75.0);
-
-    if (!stackPane.getChildren().contains(cooldownOverlay)) {
-        stackPane.getChildren().add(cooldownOverlay);
-    }
-
-    FadeTransition coolDown = new FadeTransition(Duration.seconds(cooldownDuration), cooldownOverlay);
-    coolDown.setFromValue(0.5);
-    coolDown.setToValue(0);
-    coolDown.setOnFinished(event -> {
-        stackPane.getChildren().remove(cooldownOverlay);
-        clearCooldownFlag.run();
-    });
-
-    coolDown.play();
-}
     public void isArcherOnCD() {
-        handleCooldown(player1, 15, 3.0, isArcherCD,
+        handleCooldown(player1, "Archer", 20, 3.0, isArcherCD,
                 () -> isArcherCD = true,
                 () -> isArcherCD = false,
                 archerStack, archerCDOver, 5);
     }
 
     public void isFootmanOnCD() {
-        handleCooldown(player1, 10, 5.0, isFootmanCD,
+        handleCooldown(player1, "Footman", 18, 5.0, isFootmanCD,
                 () -> isFootmanCD = true,
                 () -> isFootmanCD = false,
-                footmanStack, footmanCDOver, 8);
+                footmanStack, footmanCDOver, 4);
     }
 
     public void isKnightOnCD() {
-        handleCooldown(player1, 20, 10.0, isKnightCD,
+        handleCooldown(player1, "Knight", 35, 10.0, isKnightCD,
                 () -> isKnightCD = true,
                 () -> isKnightCD = false,
-                knightStack, knightCDOver, 12);
+                knightStack, knightCDOver, 11);
     }
 
     public void isTrollOnCD() {
-        handleCooldown(player1, 15, 3.0, isTrollCD,
+        handleCooldown(player1, "Troll", 14, 3.0, isTrollCD,
                 () -> isTrollCD = true,
                 () -> isTrollCD = false,
-                trollStack, trollCDOver, 4);
+                trollStack, trollCDOver, 5);
     }
 
     public void isOrcOnCD() {
-        handleCooldown(player1, 10, 5.0, isOrcCD,
+        handleCooldown(player1, "Goblin", 8, 5.0, isOrcCD,
                 () -> isOrcCD = true,
                 () -> isOrcCD = false,
-                orcStack, orcCDOver, 7);
+                orcStack, orcCDOver, 3);
     }
 
     public void isOgreOnCD() {
-        handleCooldown(player1, 20, 10.0, isOgreCD,
+        handleCooldown(player1, "Ogre", 35, 10.0, isOgreCD,
                 () -> isOgreCD = true,
                 () -> isOgreCD = false,
-                ogreStack, ogreCDOver, 12);
+                ogreStack, ogreCDOver, 11);
     }
 
     public void isArcherOnCD2() {
-        handleCooldown(player2, 15, 3.0, isArcherCD2,
+        handleCooldown(player2, "Archer", 20, 3.0, isArcherCD2,
                 () -> isArcherCD2 = true,
                 () -> isArcherCD2 = false,
                 archerStack2, archerCDOver2, 5);
     }
 
     public void isFootmanOnCD2() {
-        handleCooldown(player2, 10, 5.0, isFootmanCD2,
+        handleCooldown(player2, "Footman", 18, 5.0, isFootmanCD2,
                 () -> isFootmanCD2 = true,
                 () -> isFootmanCD2 = false,
-                footmanStack2, footmanCDOver2, 8);
+                footmanStack2, footmanCDOver2, 4);
     }
 
     public void isKnightOnCD2() {
-        handleCooldown(player2, 20, 10.0, isKnightCD2,
+        handleCooldown(player2, "Knight", 35, 10.0, isKnightCD2,
                 () -> isKnightCD2 = true,
                 () -> isKnightCD2 = false,
-                knightStack2, knightCDOver2, 12);
+                knightStack2, knightCDOver2, 11);
     }
 
     public void isTrollOnCD2() {
-        handleCooldown(player2, 15, 3.0, isTrollCD2,
+        handleCooldown(player2, "Troll", 14, 3.0, isTrollCD2,
                 () -> isTrollCD2 = true,
                 () -> isTrollCD2 = false,
-                trollStack2, trollCDOver2, 4);
+                trollStack2, trollCDOver2, 5);
     }
 
     public void isOrcOnCD2() {
-        handleCooldown(player2, 10, 5.0, isOrcCD2,
+        handleCooldown(player2, "Goblin", 8, 5.0, isOrcCD2,
                 () -> isOrcCD2 = true,
                 () -> isOrcCD2 = false,
-                orcStack2, orcCDOver2, 7);
+                orcStack2, orcCDOver2, 3);
     }
 
     public void isOgreOnCD2() {
-        handleCooldown(player2, 20, 10.0, isOgreCD2,
+        handleCooldown(player2, "Ogre", 35, 10.0, isOgreCD2,
                 () -> isOgreCD2 = true,
                 () -> isOgreCD2 = false,
-                ogreStack2, ogreCDOver2, 12);
+                ogreStack2, ogreCDOver2, 11);
     }
 
 
@@ -476,14 +501,14 @@ public void handleCooldown(
 
     private void handleGameOver() {
         Platform.runLater(() -> {
-            String winner = (player1.isDefeated()) ? player2.getName(): player1.getName();
-                System.out.println(winner + " won!");
-                gameLoop.stop();
-                gamePane.setStyle("-fx-background-color: gold;");
-                gameText.setOpacity(1);
-                gameText.setText(winner + " Won!");
-                applyZoomInAndFadeOutEffect(gameText);
-                game.endGame();
+            String winner = (player1.isDefeated()) ? player2.getName() : player1.getName();
+            System.out.println(winner + " won!");
+            gameLoop.stop();
+            gamePane.setStyle("-fx-background-color: gold;");
+            gameText.setOpacity(1);
+            gameText.setText(winner + " Won!");
+            applyZoomInAndFadeOutEffect(gameText);
+            game.endGame();
         });
     }
 
@@ -504,5 +529,128 @@ public void handleCooldown(
             player2Castle.setImage(new Image(Objects.requireNonNull(getClass().getResource(playerBaseImagePaths[5])).toString()));
         }
     }
-}
 
+    private void spawnUnit(String unitType, Player player, double xPos, double yPos) {
+        Unit unit = switch (unitType.toLowerCase()) {
+            case "archer" -> new Archer(xPos, yPos);
+            case "footman" -> new Footman(xPos, yPos);
+            case "goblin" -> new Goblin(xPos, yPos);
+            case "knight" -> new Knight(xPos, yPos);
+            case "ogre" -> new Ogre(xPos, yPos);
+            case "troll" -> new Troll(xPos, yPos);
+            default -> null;
+        };
+
+        if (unit != null) {
+            ImageView unitImage = new ImageView();
+            String imagePath = "/icons/" + unitType + ".png";
+            unitImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));
+
+            unitImage.setFitWidth(unit.getW());
+            unitImage.setFitHeight(unit.getH());
+            unitImage.setLayoutX(unit.getX());
+            unitImage.setLayoutY(unit.getY());
+
+            unit.setImageView(unitImage);
+            gamePane.getChildren().add(unitImage);
+
+            if(player == player1) {
+                player1Units.add(unit);
+                moveUnit(player1, unit, unitImage, xPos, yPos, 1530, 655, player2Units);
+            }else{
+                player2Units.add(unit);
+                moveUnit(player2, unit, unitImage, xPos, yPos, 350, 655, player1Units);
+            }
+        }
+    }
+
+    public void moveUnit(Player player, Unit unit, ImageView unitImage, double startX, double startY, double targetX, double targetY, List<Unit> opponentUnits) {
+        int steps = unit.movementSpeed();
+        double deltaX = (targetX - startX) / steps;
+        double deltaY = (targetY - startY) / steps;
+
+        Timeline moveUnit = new Timeline(
+                new KeyFrame(Duration.millis(50), e -> {
+                    unitImage.setLayoutX(unitImage.getLayoutX() + deltaX);
+                    unitImage.setLayoutY(unitImage.getLayoutY() + deltaY);
+
+                    double currentX = unitImage.getLayoutX();
+                    double currentY = unitImage.getLayoutY();
+
+//                    for (Unit opponentUnit : opponentUnits) {
+//                        ImageView opponentImage = opponentUnit.getImageView();
+//                        if (checkCollision(unitImage, opponentImage)) {
+//                            handleUnitAttack(player, unit, opponentUnit, opponentImage);;
+//                            return; // Exit movement if collision occurs
+//                        }
+//                    }
+
+                    if (Math.abs(currentX - targetX) <= 1 && Math.abs(currentY - targetY) <= 1) {
+                        handleCastleDamage(player, unit, unitImage);
+                    }
+                })
+        );
+        moveUnit.setCycleCount(steps);
+        moveUnit.play();
+    }
+
+    public void handleCastleDamage(Player player, Unit unit, ImageView unitImage) {
+        if(player == player1){
+            player2.changeHealth(-unit.getBaseDamage());
+            player2.validateHealth();
+            System.out.println(player2.getName() + " took damage! Remaining Health: " + player2.getCurrhealth());
+            ((Pane) unitImage.getParent()).getChildren().remove(unitImage);
+            player1Units.remove(unit);
+            player1.changeCurrCap(-unit.getUnitSize());
+        }else{
+            player1.changeHealth(-unit.getBaseDamage());
+            player1.validateHealth();
+            System.out.println(player1.getName() + " took damage! Remaining Health: " + player1.getCurrhealth());
+            ((Pane) unitImage.getParent()).getChildren().remove(unitImage);
+            player2Units.remove(unit);
+            player2.changeCurrCap(-unit.getUnitSize());
+        }
+        updateUI();
+    }
+
+//
+//    private boolean checkCollision(ImageView unit1, ImageView unit2) {
+//        if (unit2 == null) {
+//            System.out.println("unit2 is null!");
+//            return false;
+//        }
+//
+//        return unit1.getBoundsInParent().intersects(unit2.getBoundsInParent());
+//    }
+//
+//    public void handleUnitAttack(Player player, Unit attacker, Unit defender, ImageView defenderImage) {
+//        defender.setHealth(defender.getHealth() - attacker.getBaseDamage());
+//
+//        if (defender.getHealth() <= 0) {
+//            ((Pane) defenderImage.getParent()).getChildren().remove(defenderImage);
+//
+//            if (player == player1) {
+//                player2Units.remove(defender);
+//                player2.changeCurrCap(-defender.getUnitSize());
+//            } else {
+//                player1Units.remove(defender);
+//                player1.changeCurrCap(-defender.getUnitSize());
+//            }
+//
+//            System.out.println("Unit defeated! Remaining health of defender: " + defender.getHealth());
+//        } else {
+//            System.out.println("Defender health: " + defender.getHealth());
+//        }
+//    }
+//
+//    private void removeUnit(Unit unit, ImageView unitImage, Player player) {
+//        ((Pane) unitImage.getParent()).getChildren().remove(unitImage);
+//        player.changeCurrCap(-unit.getUnitSize());
+//
+//        if (player == player1) {
+//            player1Units.remove(unit);
+//        } else {
+//            player2Units.remove(unit);
+//        }
+//    }
+}

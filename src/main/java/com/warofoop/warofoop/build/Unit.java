@@ -2,33 +2,35 @@ package com.warofoop.warofoop.build;
 
 import com.warofoop.warofoop.build.interfaces.UnitActions;
 import com.warofoop.warofoop.build.interfaces.UnitType;
+import javafx.scene.image.ImageView;
 
 
 public abstract class Unit implements UnitActions {
     //stats for units
-    private float basedamage;
+    private float baseDamage;
     private float health;
     private float armor;
     private int cost;
+    private int unitSize;
     private UnitType unitType;
     private double x;
     private double y;
     private double w;
     private double h;
 
-    public Unit(float armor, float basedamage, int cost, float health) {
+    public Unit(float armor, int unitSize, float baseDamage, int cost, float health) {
         this.armor = armor;
-        this.basedamage = basedamage;
+        this.unitSize = unitSize;
+        this.baseDamage = baseDamage;
         this.cost = cost;
         this.health = health;
     }
 
-
-    public float getBasedamage() {
-        return basedamage;
+    public float getBaseDamage() {
+        return baseDamage;
     }
-    public void setBasedamage(float basedamage) {
-        this.basedamage = basedamage;
+    public void setBaseDamage(float baseDamage) {
+        this.baseDamage = baseDamage;
     }
     public float getHealth() {
         return health;
@@ -47,6 +49,12 @@ public abstract class Unit implements UnitActions {
     }
     public void setCost(int cost) {
         this.cost = cost;
+    }
+    public int getUnitSize() {
+        return unitSize;
+    }
+    public void setUnitSize(int unitSize) {
+        this.unitSize = unitSize;
     }
 
     public UnitType getUnitType() {
@@ -85,12 +93,21 @@ public abstract class Unit implements UnitActions {
         this.h = h;
     }
 
-    public boolean collidesWith(Unit other) {
-        return this.x < other.x + other.w &&
-                this.x + this.w > other.x &&
-                this.y < other.y + other.h &&
-                this.y + this.h > other.y;
+    public abstract int movementSpeed();
+
+    private ImageView imageView;
+
+    // Getter and Setter for ImageView
+    public ImageView getImageView() {
+        return imageView;
     }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    @Override
+    public abstract String toString();
 }
 
 
